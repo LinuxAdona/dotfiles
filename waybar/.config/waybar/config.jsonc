@@ -15,7 +15,9 @@
     "power-profiles-daemon",
     "cpu",
     "memory",
-    "pulseaudio",
+    "custom/updates",
+    "pulseaudio#output",
+    "pulseaudio#input",
     "network",
     "battery",
   ],
@@ -84,23 +86,50 @@
     "tooltip-format": "Memory Usage: {used} GB / {total} GB",
     "interval": 2
   },
-  "pulseaudio": {
-    "format": "{icon}",
-    "tooltip-format": "{icon}   {volume}%",
-    "format-muted": "",
+  "custom/updates": {
+    "format": "{icon} {}",
+    "return-type": "json",
     "format-icons": {
-      "headphone": "",
+      "has-updates": "󰏔",
+      "updated": ""
+    },
+    "exec-if": "which waybar-module-pacman-updates",
+    "exec": "waybar-module-pacman-updates --no-zero-output --network-interval-seconds 1800",
+    "interval": 5,
+    "states": {
+      "warning": 10,
+      "critical": 30
+    }
+  },
+  "pulseaudio#output": {
+    "format": "{icon}",
+    "tooltip-format": "Output: {volume}%",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "headphone": "󰋋",
       "default": [
-        "",
-        "",
-        ""
+        "󰕿",
+        "󰖀",
+        "󰕾"
       ]
     },
-    "max-volume": 100,
+    "on-click": "pavucontrol",
+    "on-click-right": "pamixer -t",
+    "scroll-step": 1,
+    "smooth-scrolling-threshold": 1
+  },
+  "pulseaudio#input": {
+    "format-source": "",
+    "format-source-muted": "",
+    "format": "{format_source}",
+    "tooltip-format": "{format_source} {source_volume}%",
     "scroll-step": 1,
     "smooth-scrolling-threshold": 1,
+    "max-volume": 100,
     "on-click": "pavucontrol",
-    "on-click-right": "pamixer -t"
+    "on-click-right": "pamixer -t",
+    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
+    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%"
   },
   "network": {
     "format-icons": [

@@ -40,8 +40,16 @@ window#waybar {
   font-weight: 700;
 }
 
-#pulseaudio, #network, #power-profiles-daemon {
+#pulseaudio, #network, #power-profiles-daemon, #custom-updates {
   padding: 2px 8px 2px 0;
+}
+
+#custom-updates.warning {
+  color: @warning;
+}
+
+#custom-updates.critical {
+  color: @critical;
 }
 
 #battery {
