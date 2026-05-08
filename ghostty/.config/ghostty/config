@@ -42,6 +42,6 @@ custom-shader-animation = always
 async-backend = epoll
 
 theme = Catppuccin Mocha
-command = tmux has-session && tmux a || tmux
+# command = tmux has-session && tmux a || tmux
 gtk-titlebar = false
 bell-features = no-system
