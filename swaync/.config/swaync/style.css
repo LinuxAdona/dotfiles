@@ -203,7 +203,7 @@
 
 .widget-buttons-grid>flowbox>flowboxchild>button {
   margin: 3px;
-  padding: 4px 30px;
+  padding: 4px 20px;
   background: @cc-bg;
   color: @text-color;
   transition: background-color 0.15s ease-in-out;
