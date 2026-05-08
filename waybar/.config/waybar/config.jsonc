@@ -12,10 +12,10 @@
     "clock"
   ],
   "modules-right": [
+    "custom/updates",
     "power-profiles-daemon",
     "cpu",
     "memory",
-    "custom/updates",
     "pulseaudio#output",
     "pulseaudio#input",
     "network",
@@ -87,19 +87,14 @@
     "interval": 2
   },
   "custom/updates": {
-    "format": "{icon} {}",
+    "format": "{}{icon}",
     "return-type": "json",
     "format-icons": {
-      "has-updates": "󰏔",
+      "has-updates": " 󰏖",
       "updated": ""
     },
     "exec-if": "which waybar-module-pacman-updates",
-    "exec": "waybar-module-pacman-updates --no-zero-output --network-interval-seconds 1800",
-    "interval": 5,
-    "states": {
-      "warning": 10,
-      "critical": 30
-    }
+    "exec": "waybar-module-pacman-updates --no-zero-output"
   },
   "pulseaudio#output": {
     "format": "{icon}",
