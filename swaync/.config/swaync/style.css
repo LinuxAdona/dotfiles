@@ -16,7 +16,7 @@
 @define-color blue-base #89b4fa;
 
 * {
-  font-family: "JetBrainsMono NFM SemiBold", monospace;
+  font-family: "Google Sans Flex", monospace;
   border-radius: 0;
 }
 
@@ -155,6 +155,7 @@
   padding: 5px 10px;
   margin: 10px;
   font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .widget-title>button {
