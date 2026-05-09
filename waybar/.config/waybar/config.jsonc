@@ -7,6 +7,8 @@
   "modules-left": [
     "hyprland/workspaces",
     "mpris",
+    "cpu",
+    "memory"
   ],
   "modules-center": [
     "clock"
@@ -15,12 +17,11 @@
     "custom/updates",
     "power-profiles-daemon",
     "idle_inhibitor",
-    "cpu",
-    "memory",
+    "bluetooth",
     "pulseaudio#output",
     "pulseaudio#input",
     "network",
-    "battery",
+    "battery"
   ],
   "hyprland/workspaces": {
     "format": "{name}",
@@ -104,7 +105,8 @@
       "updated": ""
     },
     "exec-if": "which waybar-module-pacman-updates",
-    "exec": "waybar-module-pacman-updates --no-zero-output"
+    "exec": "waybar-module-pacman-updates --no-zero-output",
+    "on-click": "ghostty -e sudo pacman -Syu --noconfirm"
   },
   "pulseaudio#output": {
     "format": "{icon}",
@@ -118,7 +120,7 @@
         "󰕾"
       ]
     },
-    "on-click": "pavucontrol",
+    "on-click": "ghostty -e wiremix",
     "on-click-right": "pamixer -t",
     "scroll-step": 1,
     "smooth-scrolling-threshold": 1
@@ -131,7 +133,7 @@
     "scroll-step": 1,
     "smooth-scrolling-threshold": 1,
     "max-volume": 100,
-    "on-click": "pavucontrol",
+    "on-click": "ghostty -e wiremix",
     "on-click-right": "pamixer -t",
     "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
     "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%"
@@ -165,7 +167,7 @@
     "format-disabled": "󰂲",
     "format-connected": "󰂱",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "omarchy-launch-bluetooth"
+    "on-click": "ghostty -e bluetui"
   },
   "battery": {
     "format": "{icon}   {capacity}%",
@@ -207,5 +209,5 @@
       "warning": 20,
       "critical": 10
     }
-  },
+  }
 }
