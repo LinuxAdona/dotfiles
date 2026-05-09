@@ -6,14 +6,15 @@
   "control-center-margin-top": 15,
   "control-center-margin-bottom": 15,
   "control-center-margin-right": 15,
+  "control-center-margin-left": 15,
   "notification-body-image-height": 100,
   "notification-body-image-width": 200,
   "timeout": 10,
   "timeout-low": 5,
   "timeout-critical": 0,
   "fit-to-screen": false,
-  "control-center-width": 500,
-  "control-center-height": 699,
+  "control-center-width": 300,
+  "control-center-height": 702,
   "notification-window-width": 500,
   "keyboard-shortcuts": true,
   "image-visibility": "when-available",
@@ -30,7 +31,6 @@
   },
   "widgets": [
     "title",
-    "buttons-grid",
     "mpris"
   ],
   "widget-config": {

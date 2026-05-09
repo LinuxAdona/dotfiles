@@ -40,7 +40,7 @@ window#waybar {
   font-weight: 700;
 }
 
-#pulseaudio, #network, #power-profiles-daemon, #custom-updates {
+#pulseaudio, #network, #power-profiles-daemon, #custom-updates, #idle_inhibitor {
   padding: 2px 8px 2px 0;
 }
 

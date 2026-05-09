@@ -14,6 +14,7 @@
   "modules-right": [
     "custom/updates",
     "power-profiles-daemon",
+    "idle_inhibitor",
     "cpu",
     "memory",
     "pulseaudio#output",
@@ -66,6 +67,13 @@
       "brave"
     ]
   },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": "󰾫"
+    }
+  },
   "power-profiles-daemon": {
     "format": "{icon}",
     "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
@@ -79,12 +87,14 @@
   "cpu": {
     "format": "  {usage}%",
     "tooltip-format": "CPU Usage: {usage}%",
-    "interval": 2
+    "interval": 2,
+    "on-click": "ghostty -e btop"
   },
   "memory": {
     "format": "   {}%",
-    "tooltip-format": "Memory Usage: {used} GB / {total} GB",
-    "interval": 2
+    "tooltip-format": "{used} GB / {total} GB",
+    "interval": 2,
+    "on-click": "ghostty -e htop"
   },
   "custom/updates": {
     "format": "{}{icon}",
@@ -143,6 +153,7 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "spacing": 1,
+    "on-click": "ghostty -e impala"
   },
   "clock": {
     "interval": 60,

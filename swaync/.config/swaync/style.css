@@ -9,15 +9,19 @@
 @define-color text-color #cdd6f4;
 @define-color text-color-disabled #7f849c;
 @define-color bg-selected #89b4fa;
-@define-color border-blue #89b4fa;
+@define-color border-white #cdd6f4;
 @define-color red-base #eba0ac;
 @define-color red-hover #f38ba8;
 @define-color green-base #a6e3a1;
-@define-color blue-base #89b4fa;
+@define-color white-base #cdd6f4;
 
 * {
   font-family: "Google Sans Flex", monospace;
   border-radius: 0;
+}
+
+.control-center, .notification {
+  opacity: 0.8;
 }
 
 .control-center .notification-row:focus,
@@ -57,7 +61,7 @@
 
 .notification {
   background: @cc-bg;
-  border: 2px solid @border-blue;
+  border: 2px solid @border-white;
   margin: 9px 3px 3px 0;
 }
 
@@ -84,13 +88,9 @@
   transition: all 0.15s ease-in-out;
 }
 
-.notification-action {
-  border: 2px solid @border-blue;
-}
-
 .notification-default-action:hover,
 .notification-action:hover {
-  color: @blue-base;
+  color: @white-base;
   background: @cc-bg;
 }
 
@@ -146,11 +146,11 @@
 
 .control-center {
   background: @cc-bg;
-  border: 2px solid @border-blue;
+  border: 2px solid @border-white;
 }
 
 .widget-title {
-  color: @blue-base;
+  color: @white-base;
   background: @noti-bg-darker;
   padding: 5px 10px;
   margin: 10px;
@@ -175,11 +175,11 @@
   padding: 5px 10px;
   margin: 5px 10px;
   font-size: large;
-  color: @blue-base;
+  color: @white-base;
 }
 
 .widget-dnd>switch {
-  background: @blue-base;
+  background: @white-base;
   border-radius: 0;
 }
 
@@ -203,14 +203,14 @@
 
 .widget-buttons-grid>flowbox>flowboxchild>button {
   margin: 3px;
-  padding: 4px 20px;
+  padding: 4px 10px;
   background: @cc-bg;
   color: @text-color;
   transition: background-color 0.15s ease-in-out;
 }
 
 .widget-buttons-grid>flowbox>flowboxchild>button:hover {
-  background: @blue-base;
+  background: @white-base;
   color: @cc-bg;
 }
 
@@ -225,7 +225,7 @@
   padding: 5px;
   margin: 5px 10px;
   font-size: 2rem;
-  color: @blue-base;
+  color: @white-base;
 }
 
 .widget-mpris {
@@ -253,6 +253,6 @@ picture.mpris-background {
 }
 
 .notification-action>button:hover {
-  background-color: @border-blue;
+  background-color: @border-white;
   color: @cc-bg;
 }
