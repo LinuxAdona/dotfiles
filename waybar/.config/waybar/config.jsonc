@@ -6,9 +6,7 @@
   "margin-right": 0,
   "modules-left": [
     "hyprland/workspaces",
-    "mpris",
-    "cpu",
-    "memory"
+    "mpris"
   ],
   "modules-center": [
     "clock"
@@ -18,6 +16,8 @@
     "power-profiles-daemon",
     "idle_inhibitor",
     "group/tray-expander",
+    "cpu",
+    "memory",
     "network",
     "battery"
   ],
