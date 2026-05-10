@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-set -e # exit on error
+set -e
 
-# Update system
-sudo dnf update
+sudo pacman -Sy --noconfirm
 
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
   echo "TPM not found. Installing now."
@@ -12,10 +11,22 @@ else
   echo "TPM is installed! Skipping installation."
 fi
 
+if ! command -v yay &>/dev/null; then
+  echo "yay not found. Installing from AUR..."
+  cd /tmp
+  git clone https://aur.archlinux.org/yay.git
+  cd yay
+  makepkg -si --noconfirm
+  cd /tmp && rm -rf yay
+else
+  echo "yay already installed. Skipping."
+fi
+
 PACKAGES=(
   stow
   cmake
   openssh
+  github-cli
 )
 
 DEV_PACKAGES=(
@@ -23,14 +34,12 @@ DEV_PACKAGES=(
   git
   nodejs
   npm
-  libxcrypt-compat
   php
   libnsl
 )
 
 SHELL_PACKAGES=(
   zsh
-  zoxide
   tmux
 )
 
@@ -41,17 +50,22 @@ UTIL_PACKAGES=(
 )
 
 STYLE_PACKAGES=(
+)
+
+AUR_PACKAGES=(
+  zoxide
   cmatrix
 )
 
-sudo dnf install -y \
+sudo pacman -S --noconfirm \
   "${PACKAGES[@]}" \
   "${DEV_PACKAGES[@]}" \
   "${SHELL_PACKAGES[@]}" \
   "${UTIL_PACKAGES[@]}" \
   "${STYLE_PACKAGES[@]}"
 
-# Composer installation
+yay -S --noconfirm "${AUR_PACKAGES[@]}"
+
 if command -v composer &>/dev/null; then
   echo "Composer already installed. Skipping."
 else
@@ -108,7 +122,7 @@ clone_plugin() {
 clone_plugin "zsh-users/zsh-autosuggestions" "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 clone_plugin "zsh-users/zsh-syntax-highlighting" "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 clone_plugin "romkatv/powerlevel10k" "$ZSH_CUSTOM/themes/powerlevel10k"
-clone_plugin "MichaelAquilina/zsh-you-should-use" "$ZSH_CUSTOM/plugins/you-should-use"
+clone_plugin "MichaelAquilina/zsh-you-should-use" "$ZSH_CUSTOM/plugins/zsh-you-should-use"
 clone_plugin "fdellwing/zsh-bat" "$ZSH_CUSTOM/plugins/zsh-bat"
 
 DOTFILES_DIR="$HOME/dotfiles"
