@@ -41,13 +41,13 @@ git clone https://github.com/itslinxad/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ```
 
-#### Deploy all packages:
+#### Deploy all packages
 
 ```bash
 stow ghostty hypr nvim omarchy opencode tmux waybar zsh
 ```
 
-#### Deploy specific packages:
+#### Deploy specific packages
 
 Each top-level directory is a stow package. Deploy individual packages by name:
 
@@ -60,17 +60,6 @@ stow zsh        # Deploy Zsh config to ~/.zshrc
 ```
 
 ## Usage
-
-### Update Dotfiles from System
-
-After making changes to your live configurations, sync them back to the repository:
-
-```bash
-chmod +x refresh.sh
-./refresh.sh
-```
-
-This script deletes the existing config copies in the repo and copies fresh configs from your live system (`~/.config/` and `~/`) back into each stow package directory.
 
 ### Unstow Configurations
 
