@@ -17,9 +17,7 @@
     "custom/updates",
     "power-profiles-daemon",
     "idle_inhibitor",
-    "bluetooth",
-    "pulseaudio#output",
-    "pulseaudio#input",
+    "group/tray-expander",
     "network",
     "battery"
   ],
@@ -75,6 +73,28 @@
       "deactivated": "󰾫"
     }
   },
+  "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "tray-group-item"
+    },
+    "modules": [
+      "custom/expand-icon",
+      "bluetooth",
+      "pulseaudio#output",
+      "pulseaudio#input",
+      "tray"
+    ]
+  },
+  "custom/expand-icon": {
+    "format": "",
+    "tooltip": false,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "on-scroll-left": "",
+    "on-scroll-right": ""
+  },
   "power-profiles-daemon": {
     "format": "{icon}",
     "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
@@ -129,7 +149,7 @@
     "format-source": "",
     "format-source-muted": "",
     "format": "{format_source}",
-    "tooltip-format": "{format_source} {source_volume}%",
+    "tooltip-format": "Input: {source_volume}%",
     "scroll-step": 1,
     "smooth-scrolling-threshold": 1,
     "max-volume": 100,
@@ -229,5 +249,9 @@
       "warning": 20,
       "critical": 10
     }
+  },
+  "tray": {
+    "icon-size": 12,
+    "spacing": 17
   }
 }
