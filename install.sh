@@ -27,6 +27,8 @@ PACKAGES=(
   cmake
   openssh
   github-cli
+  base-devel
+  ghostty
 )
 
 DEV_PACKAGES=(
@@ -35,32 +37,70 @@ DEV_PACKAGES=(
   nodejs
   npm
   php
+  libxcrypt-compat
   libnsl
+  filezilla
 )
 
 SHELL_PACKAGES=(
   zsh
   tmux
+  yazi
+)
+
+HYPRLAND_PACKAGES=(
+  hyprland
+  awww
+  hypridle
+  hyprlock
+  waybar
+  rofi
+  swaync
+  wlogout
+  wl-clipboard
+  cliphist
+  brightnessctl
+  playerctl
+  wpctl
+  pamixer
+  bluetui
 )
 
 UTIL_PACKAGES=(
   curl
   wget
   flatpak
+  pavucontrol
+  piper
+  kalarm
+  bluez
+  bluez-utils
+  bluez-deprecated
+  impala
+  blue-tui
+  pamixer
 )
 
 STYLE_PACKAGES=(
+  otf-commit-mono-nerd
+  ttf-jetbrains-mono-nerd
+  cmatrix
 )
 
 AUR_PACKAGES=(
   zoxide
-  cmatrix
+  apple_cursor
+  brave-bin
+  waybar-module-pacman-updates-git
+  paru
+  snapd
 )
 
 sudo pacman -S --noconfirm \
   "${PACKAGES[@]}" \
   "${DEV_PACKAGES[@]}" \
   "${SHELL_PACKAGES[@]}" \
+  "${HYPRLAND_PACKAGES[@]}" \
   "${UTIL_PACKAGES[@]}" \
   "${STYLE_PACKAGES[@]}"
 
@@ -199,8 +239,12 @@ install_config() {
 }
 
 install_config "Ghostty" "ghostty"
+install_config "Hyprland" "hypr"
 install_config "Neovim" "nvim"
+install_config "Omarchy" "omarchy"
+install_config "OpenCode" "opencode"
 install_config "Tmux" "tmux"
+install_config "Waybar" "waybar"
 install_config "Zsh" "zsh"
 
 echo ""

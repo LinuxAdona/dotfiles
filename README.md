@@ -7,6 +7,7 @@ My personal dotfiles managed with GNU Stow for Arch Linux with Hyprland ([Omarch
 - Git
 - GNU Stow
 - Arch Linux (for `install.sh`)
+- Hyprland-based Wayland desktop
 
 ## Installation
 
@@ -22,9 +23,11 @@ chmod +x install.sh
 This will install:
 
 - **AUR helper**: yay (installed automatically if not present)
-- **Core utilities**: stow, cmake
-- **Development tools**: neovim, git, base-devel, filezilla, nodejs, npm, php, composer
-- **Shell environment**: zsh (with Oh My Zsh, Powerlevel10k, autosuggestions, syntax-highlighting), yazi, zoxide, tmux (with TPM)
+- **Core utilities**: stow, cmake, base-devel, openssh, github-cli
+- **Development tools**: neovim, git, nodejs, npm, php, filezilla
+- **Shell environment**: zsh (with Oh My Zsh, Powerlevel10k, autosuggestions, syntax-highlighting), yazi, tmux (with TPM), zoxide
+- **Hyprland ecosystem**: hyprland, hyprpaper, hypridle, hyprlock, waybar, rofi, wofi, swaync, wlogout
+- **Wayland utilities**: wl-clipboard, cliphist, brightnessctl, playerctl, wpctl, pamixer, bluetui
 - **System utilities**: curl, wget, flatpak, pavucontrol, piper, kalarm
 - **Styling**: otf-commit-mono-nerd, cmatrix
 - **AUR packages**: waybar-module-pacman-updates-git, wttrbar, bibata-cursor-theme, brave-bin, paru, snapd, tty-clock
@@ -127,6 +130,14 @@ dotfiles/
 │       └── style.css
 ├── zsh/                       # Zsh shell
 │   └── .zshrc
+├── btop/                      # btop system monitor
+│   └── .config/btop/
+├── rofi/                      # Rofi app launcher
+│   └── .config/rofi/
+├── swaync/                    # Sway notification center
+│   └── .config/swaync/
+├── wlogout/                   # Wlogout menu
+│   └── .config/wlogout/
 ├── install.sh                 # System package installation script
 └── refresh.sh                 # Sync live configs back to repo
 ```

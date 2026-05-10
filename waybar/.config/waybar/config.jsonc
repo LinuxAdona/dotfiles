@@ -204,7 +204,7 @@
     "tooltip-format-discharging": "{timeTo}",
     "tooltip-format-charging": "{timeTo}",
     "interval": 5,
-    "on-click": "omarchy-menu power",
+    "on-click": "",
     "states": {
       "warning": 20,
       "critical": 10
