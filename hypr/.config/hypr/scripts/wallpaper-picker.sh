@@ -3,10 +3,9 @@
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 
 # for custom randomization
-# TRANSITIONS=(fade grow wipe wave outer)
-# AWWW_TRANSITION="${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}"
-
-AWWW_TRANSITION="any"
+TRANSITIONS=(fade grow wipe wave outer)
+AWWW_TRANSITION="${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}"
+# AWWW_TRANSITION="any"
 AWWW_DURATION=1
 AWWW_FPS=60
 
