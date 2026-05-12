@@ -1,0 +1,12 @@
+[Unit]
+Description=Set initial power profile based on battery
+After=power-profiles-daemon.service
+Wants=power-profiles-daemon.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/auto-power-profile.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical.target
