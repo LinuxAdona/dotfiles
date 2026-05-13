@@ -64,6 +64,10 @@ window#waybar.overlay {
   margin-left: 16px;
 }
 
+#tray widget>image {
+  margin-left: 16px;
+}
+
 #custom-updates.warning {
   color: @warning;
 }
