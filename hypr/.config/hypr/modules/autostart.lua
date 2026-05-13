@@ -9,7 +9,7 @@
 --
 hl.on("hyprland.start", function()
 	hl.exec_cmd("awww-daemon")
-	hl.exec_cmd("waybar & hypridle & swaync")
+	hl.exec_cmd("waybar & hypridle & swaync & swayosd-server")
 
 	-- Clipboard Manager
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
