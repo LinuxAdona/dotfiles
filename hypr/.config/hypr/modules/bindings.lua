@@ -111,10 +111,7 @@ hl.bind(mainMod .. " + CTRL + S", hl.dsp.exec_cmd("hyprshot -m region -o ~/Pictu
 hl.bind(mainMod .. " + F12", hl.dsp.exec_cmd("hyprshot -m output -m eDP-1 -o ~/Pictures/Screenshots"))
 
 -- Transparency Toggle
-hl.bind(
-	mainMod .. " + SHIFT + BACKSPACE",
-	hl.dsp.exec_cmd("hyprctl dispatch setprop \"address:$(hyprctl activewindow -j | jq -r '.address')\" opaque toggle")
-)
+hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.window.set_prop({ prop = "opaque", value = "toggle" }))
 
 -- Wallpaper Switcher
 hl.bind(mainMod .. " + CTRL + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-picker.sh"))
