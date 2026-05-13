@@ -132,7 +132,7 @@
     },
     "power-profiles-daemon": {
       "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip-format": "Power Profile: {profile}",
       "tooltip": true,
       "format-icons": {
         "performance": "",
@@ -142,13 +142,15 @@
     },
     "cpu": {
       "format": "  {usage}%",
-      "tooltip-format": "CPU Usage: {usage}%",
+      "tooltip-format": [
+        "{}: {usage0}%"
+      ],
       "interval": 2,
       "on-click": "ghostty -e btop"
     },
     "memory": {
       "format": "   {}%",
-      "tooltip-format": "{used} GB / {total} GB",
+      "tooltip-format": "{used:0.1f}G / {total:0.1f}G",
       "interval": 2,
       "on-click": "ghostty -e htop"
     },
