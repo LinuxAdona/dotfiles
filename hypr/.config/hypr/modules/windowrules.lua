@@ -110,3 +110,10 @@ hl.layer_rule({
 	},
 	blur = true,
 })
+
+hl.layer_rule({
+	match = {
+		namespace = "hyprpicker",
+	},
+	no_anim = true,
+})

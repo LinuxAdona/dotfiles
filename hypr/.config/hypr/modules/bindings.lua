@@ -122,3 +122,6 @@ hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/w
 
 -- Logout Menu
 hl.bind(mainMod .. " + CTRL + DELETE", hl.dsp.exec_cmd("wlogout -m 150 -c 10 -r 10"))
+
+-- Color Picker
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("hyprpicker -a"))
