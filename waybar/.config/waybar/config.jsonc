@@ -191,7 +191,7 @@
       "smooth-scrolling-threshold": 1,
       "max-volume": 100,
       "on-click": "ghostty -e wiremix",
-      "on-click-right": "pamixer -t",
+      "on-click-right": "pamixer --default-source -t",
       "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
       "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%"
     },

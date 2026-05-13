@@ -82,7 +82,7 @@ hl.bind(
 )
 hl.bind(
 	"XF86AudioMicMute",
-	hl.dsp.exec_cmd("swayosd-client --input-volume mute-toggle"),
+	hl.dsp.exec_cmd("pamixer --default-source -t && swayosd-client --input-volume mute-toggle"),
 	{ locked = true, repeating = true }
 )
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness +5"), { locked = true, repeating = true })
