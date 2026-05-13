@@ -7,4 +7,4 @@ if [ ${#text} -gt $maxlength ]; then
   text=${text:0:$maxlength-3}"..."
 fi
 
-playerctl metadata --format '{"text": "'"$text"'", "tooltip": "{{playerName}} : {{artist}} - {{title}}"'
+playerctl metadata --format '{"text": "'"$text"'", "tooltip": "{{playerName}} : {{artist}} - {{title}}"}'

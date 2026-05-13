@@ -1,302 +1,321 @@
-{
-  "spacing": 18,
-  "margin-top": 0,
-  "margin-bottom": -20,
-  "margin-left": 0,
-  "margin-right": 0,
-  "modules-left": [
-    "hyprland/workspaces",
-    "mpris",
-    "cava"
-    // "custom/cava"
-    // "custom/playerinfo"
-  ],
-  "modules-center": [
-    "clock"
-  ],
-  "modules-right": [
-    "custom/updates",
-    "power-profiles-daemon",
-    "idle_inhibitor",
-    "group/tray-expander",
-    "cpu",
-    "memory",
-    "network",
-    "battery"
-  ],
-  "hyprland/workspaces": {
-    "format": "{name}",
-    "format-icons": {
-      "1": "1",
-      "2": "2",
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "active": "",
-      "default": ""
-    },
-    "persistent-workspaces": {
-      "eDP-1": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ], // 5 workspaces by default on every monitor
-      "HDMI-A-1": [
-        6,
-        7,
-        8,
-        9,
-        10
-      ] // 5 workspaces by default on every monitor
-    }
-  },
-  "mpris": {
-    "format": "   {artist} - {title}",
-    "format-paused": "<span color='grey'>{status_icon}</span>",
-    "max-length": 25,
-    "player-icons": {
-      "default": "⏸",
-      "mpv": "🎵"
-    },
-    "status-icons": {
-      "paused": ""
-    },
-    "ignored-players": [
-      "firefox",
-      "chromium",
-      "brave"
-    ]
-  },
-  // "cava": {
-  //   "framerate": 60,
-  //   "autosens": 1,
-  //   "bars": 4,
-  //   "lower_cutoff_freq": 50,
-  //   "higher_cutoff_freq": 10000,
-  //   "method": "pipewire",
-  //   "stereo": false,
-  //   "reverse": false,
-  //   "bar_delimiter": 0,
-  //   "monstercat": false,
-  //   "waves": false,
-  //   "input_delay": 2,
-  //   "format-icons": [
-  //     "▁",
-  //     "▂",
-  //     "▃",
-  //     "▄",
-  //     "▅",
-  //     "▆",
-  //     "▇",
-  //     "█"
-  //   ],
-  //   "actions": {
-  //     "on-click-right": "mode"
-  //   }
-  // },
-  // "custom/playerinfo": {
-  //   "format": "&lt; {} &gt;",
-  //   "exec": "~/.config/waybar/scripts/playerinfo.sh",
-  //   "escape": true,
-  //   "return-type": "json",
-  //   "interval": 1,
-  //   "tooltip": true,
-  //   "on-click-middle": "playerctl play-pause",
-  //   "on-click-right": "playerctl next",
-  //   "on-click-left": "playerctl previous"
-  // },
-  "custom/cava": {
-    "format": "{}",
-    "exec": "~/.config/waybar/scripts/cava.sh"
-  },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "󰅶",
-      "deactivated": "󰾪"
-    }
-  },
-  "group/tray-expander": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 600,
-      "children-class": "tray-group-item"
-    },
-    "modules": [
-      "custom/expand-icon",
-      "bluetooth",
-      "pulseaudio#output",
-      "pulseaudio#input",
-      "tray"
-    ]
-  },
-  "custom/expand-icon": {
-    "format": "",
-    "tooltip": false,
-    "on-scroll-up": "",
-    "on-scroll-down": "",
-    "on-scroll-left": "",
-    "on-scroll-right": ""
-  },
-  "power-profiles-daemon": {
-    "format": "{icon}",
-    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-    "tooltip": true,
-    "format-icons": {
-      "performance": "",
-      "balanced": "",
-      "power-saver": ""
-    }
-  },
-  "cpu": {
-    "format": "  {usage}%",
-    "tooltip-format": "CPU Usage: {usage}%",
-    "interval": 2,
-    "on-click": "ghostty -e btop"
-  },
-  "memory": {
-    "format": "   {}%",
-    "tooltip-format": "{used} GB / {total} GB",
-    "interval": 2,
-    "on-click": "ghostty -e htop"
-  },
-  "custom/updates": {
-    "format": "{}{icon}",
-    "return-type": "json",
-    "format-icons": {
-      "has-updates": " 󰏖",
-      "updated": ""
-    },
-    "exec-if": "which waybar-module-pacman-updates",
-    "exec": "waybar-module-pacman-updates --no-zero-output",
-    "on-click": "ghostty -e sudo pacman -Syu --noconfirm"
-  },
-  "pulseaudio#output": {
-    "format": "{icon}",
-    "tooltip-format": "Output: {volume}%",
-    "format-muted": "󰝟",
-    "format-icons": {
-      "headphone": "󰋋",
-      "default": [
-        "󰕿",
-        "󰖀",
-        "󰕾"
-      ]
-    },
-    "on-click": "ghostty -e wiremix",
-    "on-click-right": "pamixer -t",
-    "scroll-step": 1,
-    "smooth-scrolling-threshold": 1
-  },
-  "pulseaudio#input": {
-    "format-source": "",
-    "format-source-muted": "",
-    "format": "{format_source}",
-    "tooltip-format": "Input: {source_volume}%",
-    "scroll-step": 1,
-    "smooth-scrolling-threshold": 1,
-    "max-volume": 100,
-    "on-click": "ghostty -e wiremix",
-    "on-click-right": "pamixer -t",
-    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
-    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%"
-  },
-  "network": {
-    "format-icons": [
-      "󰤯",
-      "󰤟",
-      "󰤢",
-      "󰤥",
-      "󰤨"
+[
+  {
+    "name": "overlay",
+    "height": 30,
+    "layer": "bottom",
+    "position": "top",
+    "margin-top": -30,
+    "exclusive": false,
+    "passtrough": true,
+    "modules-left": [
+      "custom/cava"
     ],
-    "format": "{icon}",
-    "format-wifi": "{icon}",
-    "format-ethernet": "󰌗",
-    "format-disconnected": "󰤮",
-    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-    "tooltip-format-disconnected": "Disconnected",
-    "interval": 3,
-    "spacing": 1,
-    "on-click": "ghostty -e impala"
+    "custom/cava": {
+      "format": "{}",
+      "exec": "~/.config/waybar/scripts/cava.sh"
+    }
   },
-  "clock": {
-    "interval": 60,
-    "format": "{:%a %B %d %I:%M %p}",
-    "tooltip-format": "<tt><small>{calendar}</small></tt>",
-    "calendar": {
-      "mode": "year",
-      "mode-mon-col": 3,
-      "weeks-pos": "right",
-      "on-scroll": 1,
-      "format": {
-        "months": "<span color='#ffead3'><b>{}</b></span>",
-        "days": "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
-        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+  {
+    "height": 30,
+    "spacing": 18,
+    "margin-top": 0,
+    "margin-bottom": -20,
+    "margin-left": 0,
+    "margin-right": 0,
+    "modules-left": [
+      "hyprland/workspaces",
+      "custom/playerinfo"
+      // "mpris"
+      // "cava"
+      // "custom/cava",
+    ],
+    "modules-center": [
+      "clock"
+    ],
+    "modules-right": [
+      "custom/updates",
+      "power-profiles-daemon",
+      "idle_inhibitor",
+      "group/tray-expander",
+      "cpu",
+      "memory",
+      "network",
+      "battery"
+    ],
+    "hyprland/workspaces": {
+      "format": "{name}",
+      "format-icons": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "active": "",
+        "default": ""
+      },
+      "persistent-workspaces": {
+        "eDP-1": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ], // 5 workspaces by default on every monitor
+        "HDMI-A-1": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ] // 5 workspaces by default on every monitor
       }
     },
-    "actions": {
-      "on-click-right": "mode",
-      "on-scroll-up": "tz_up",
-      "on-scroll-down": "tz_down",
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
-    }
-  },
-  "bluetooth": {
-    "format": "",
-    "format-disabled": "󰂲",
-    "format-connected": "󰂱",
-    "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "ghostty -e bluetui"
-  },
-  "battery": {
-    "format": "{icon}   {capacity}%",
-    "format-discharging": "{icon} {capacity}%",
-    "format-charging": "{icon}  {capacity}%",
-    "format-plugged": " {capacity}%",
-    "format-icons": {
-      "charging": [
-        "󰢜",
-        "󰂆",
-        "󰂇",
-        "󰂈",
-        "󰢝",
-        "󰂉",
-        "󰢞",
-        "󰂊",
-        "󰂋",
-        "󰂅"
-      ],
-      "default": [
-        "󰁺",
-        "󰁻",
-        "󰁼",
-        "󰁽",
-        "󰁾",
-        "󰁿",
-        "󰂀",
-        "󰂁",
-        "󰂂",
-        "󰁹"
+    // "mpris": {
+    //   "format": "   {artist} - {title}",
+    //   "format-paused": "<span color='grey'>{status_icon}</span>",
+    //   "max-length": 25,
+    //   "player-icons": {
+    //     "default": "⏸",
+    //     "mpv": "🎵"
+    //   },
+    //   "status-icons": {
+    //     "paused": ""
+    //   },
+    //   "ignored-players": [
+    //     "firefox",
+    //     "chromium",
+    //     "brave"
+    //   ]
+    // },
+    // "cava": {
+    //   "framerate": 60,
+    //   "autosens": 1,
+    //   "bars": 4,
+    //   "lower_cutoff_freq": 50,
+    //   "higher_cutoff_freq": 10000,
+    //   "method": "pipewire",
+    //   "stereo": false,
+    //   "reverse": false,
+    //   "bar_delimiter": 0,
+    //   "monstercat": false,
+    //   "waves": false,
+    //   "input_delay": 2,
+    //   "format-icons": [
+    //     "▁",
+    //     "▂",
+    //     "▃",
+    //     "▄",
+    //     "▅",
+    //     "▆",
+    //     "▇",
+    //     "█"
+    //   ],
+    //   "actions": {
+    //     "on-click-right": "mode"
+    //   }
+    // },
+    "custom/playerinfo": {
+      "format": "   {}",
+      "exec": "~/.config/waybar/scripts/playerinfo.sh",
+      "escape": true,
+      "return-type": "json",
+      "interval": 1,
+      "tooltip": true,
+      "on-click-middle": "playerctl play-pause",
+      "on-click-right": "playerctl next",
+      "on-click-left": "playerctl previous"
+    },
+    // "custom/cava": {
+    //   "format": "{}",
+    //   "exec": "~/.config/waybar/scripts/cava.sh"
+    // },
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+        "activated": "󰅶",
+        "deactivated": "󰾪"
+      }
+    },
+    "group/tray-expander": {
+      "orientation": "inherit",
+      "drawer": {
+        "transition-duration": 600,
+        "children-class": "tray-group-item"
+      },
+      "modules": [
+        "custom/expand-icon",
+        "bluetooth",
+        "pulseaudio#output",
+        "pulseaudio#input",
+        "tray"
       ]
     },
-    "format-full": "󰂅  {capacity}%",
-    "tooltip-format-discharging": "{timeTo}",
-    "tooltip-format-charging": "{timeTo}",
-    "interval": 5,
-    "on-click": "",
-    "states": {
-      "warning": 20,
-      "critical": 10
+    "custom/expand-icon": {
+      "format": "",
+      "tooltip": false,
+      "on-scroll-up": "",
+      "on-scroll-down": "",
+      "on-scroll-left": "",
+      "on-scroll-right": ""
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": {
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+      }
+    },
+    "cpu": {
+      "format": "  {usage}%",
+      "tooltip-format": "CPU Usage: {usage}%",
+      "interval": 2,
+      "on-click": "ghostty -e btop"
+    },
+    "memory": {
+      "format": "   {}%",
+      "tooltip-format": "{used} GB / {total} GB",
+      "interval": 2,
+      "on-click": "ghostty -e htop"
+    },
+    "custom/updates": {
+      "format": "{}{icon}",
+      "return-type": "json",
+      "format-icons": {
+        "has-updates": " 󰏖",
+        "updated": ""
+      },
+      "exec-if": "which waybar-module-pacman-updates",
+      "exec": "waybar-module-pacman-updates --no-zero-output",
+      "on-click": "ghostty -e sudo pacman -Syu --noconfirm"
+    },
+    "pulseaudio#output": {
+      "format": "{icon}",
+      "tooltip-format": "Output: {volume}%",
+      "format-muted": "󰝟",
+      "format-icons": {
+        "headphone": "󰋋",
+        "default": [
+          "󰕿",
+          "󰖀",
+          "󰕾"
+        ]
+      },
+      "on-click": "ghostty -e wiremix",
+      "on-click-right": "pamixer -t",
+      "scroll-step": 1,
+      "smooth-scrolling-threshold": 1
+    },
+    "pulseaudio#input": {
+      "format-source": "",
+      "format-source-muted": "",
+      "format": "{format_source}",
+      "tooltip-format": "Input: {source_volume}%",
+      "scroll-step": 1,
+      "smooth-scrolling-threshold": 1,
+      "max-volume": 100,
+      "on-click": "ghostty -e wiremix",
+      "on-click-right": "pamixer -t",
+      "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
+      "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%"
+    },
+    "network": {
+      "format-icons": [
+        "󰤯",
+        "󰤟",
+        "󰤢",
+        "󰤥",
+        "󰤨"
+      ],
+      "format": "{icon}",
+      "format-wifi": "{icon}",
+      "format-ethernet": "󰌗",
+      "format-disconnected": "󰤮",
+      "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+      "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+      "tooltip-format-disconnected": "Disconnected",
+      "interval": 3,
+      "spacing": 1,
+      "on-click": "ghostty -e impala"
+    },
+    "clock": {
+      "interval": 60,
+      "format": "{:%a %B %d %I:%M %p}",
+      "tooltip-format": "<tt><small>{calendar}</small></tt>",
+      "calendar": {
+        "mode": "year",
+        "mode-mon-col": 3,
+        "weeks-pos": "right",
+        "on-scroll": 1,
+        "format": {
+          "months": "<span color='#ffead3'><b>{}</b></span>",
+          "days": "<span color='#ecc6d9'><b>{}</b></span>",
+          "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+          "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+          "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        }
+      },
+      "actions": {
+        "on-click-right": "mode",
+        "on-scroll-up": "tz_up",
+        "on-scroll-down": "tz_down",
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
+      }
+    },
+    "bluetooth": {
+      "format": "",
+      "format-disabled": "󰂲",
+      "format-connected": "󰂱",
+      "tooltip-format": "Devices connected: {num_connections}",
+      "on-click": "ghostty -e bluetui"
+    },
+    "battery": {
+      "format": "{icon}   {capacity}%",
+      "format-discharging": "{icon} {capacity}%",
+      "format-charging": "{icon}  {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-icons": {
+        "charging": [
+          "󰢜",
+          "󰂆",
+          "󰂇",
+          "󰂈",
+          "󰢝",
+          "󰂉",
+          "󰢞",
+          "󰂊",
+          "󰂋",
+          "󰂅"
+        ],
+        "default": [
+          "󰁺",
+          "󰁻",
+          "󰁼",
+          "󰁽",
+          "󰁾",
+          "󰁿",
+          "󰂀",
+          "󰂁",
+          "󰂂",
+          "󰁹"
+        ]
+      },
+      "format-full": "󰂅  {capacity}%",
+      "tooltip-format-discharging": "{timeTo}",
+      "tooltip-format-charging": "{timeTo}",
+      "interval": 5,
+      "on-click": "",
+      "states": {
+        "warning": 20,
+        "critical": 10
+      }
+    },
+    "tray": {
+      "icon-size": 12,
+      "spacing": 17
     }
-  },
-  "tray": {
-    "icon-size": 12,
-    "spacing": 17
   }
-}
+]

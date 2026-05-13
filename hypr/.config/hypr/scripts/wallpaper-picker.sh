@@ -3,11 +3,25 @@
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 
 # for custom randomization
-TRANSITIONS=(fade grow wipe wave outer)
-AWWW_TRANSITION="${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}"
-# AWWW_TRANSITION="any"
-AWWW_DURATION=1
+# TRANSITIONS=(center grow wipe wave outer)
+# AWWW_TRANSITION="${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}"
+AWWW_TRANSITION="random"
+AWWW_DURATION=3
 AWWW_FPS=60
+
+# Cycle wallpaper mode
+if [[ "$1" == "--cycle" ]]; then
+  files=("$WALLPAPER_DIR"/*)
+  INDEX_FILE="$HOME/.cache/wallpaper-index"
+  index=$(cat "$INDEX_FILE" 2>/dev/null || echo 0)
+  index=$((index % ${#files[@]}))
+  awww img "${files[$index]}" \
+    --transition-type "$AWWW_TRANSITION" \
+    --transition-duration "$AWWW_DURATION" \
+    --transition-fps "$AWWW_FPS"
+  echo $(((index + 1) % ${#files[@]})) >"$INDEX_FILE"
+  exit 0
+fi
 
 # Build thumbnail cache
 CACHE_DIR="$HOME/.cache/wallpaper-thumbs"
