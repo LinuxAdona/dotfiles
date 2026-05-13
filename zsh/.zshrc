@@ -119,6 +119,8 @@ source $ZSH/oh-my-zsh.sh
 # export STARSHIP_CONFIG_DIR=$HOME/.config/starship/starship.toml
 # eval "$(starship init zsh)"
 
+source /usr/share/nvm/init-nvm.sh
+
 # Open buffer line in editor
 autoload -Uz edit-command-line
 zle -N edit-command-line
@@ -156,8 +158,15 @@ export PATH="/opt/lampp/bin/:$PATH"
 export ANDROID_HOME="$HOME/Android/Sdk/"
 export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin"
 
+# java
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 export PATH=$PATH:/home/mdk0/.spicetify
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
