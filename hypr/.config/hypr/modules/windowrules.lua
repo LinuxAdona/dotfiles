@@ -108,7 +108,7 @@ hl.layer_rule({
 	match = {
 		namespace = "logout_dialog",
 	},
-	blur = true,
+	dim_around = true,
 })
 
 hl.layer_rule({
