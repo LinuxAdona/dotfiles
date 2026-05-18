@@ -18,4 +18,7 @@ hl.on("hyprland.start", function()
 
 	-- MacOS Cursor
 	hl.exec_cmd("hyprctl setcursor macOS-White 24")
+
+	-- Gnome Polkit
+	hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
 end)
