@@ -1,0 +1,14 @@
+/**
+ *
+ * Rose Pine colors
+ * https://github.com/rose-pine/rose-pine
+ **/
+
+* {
+    background:     #1F1D2EFF;
+    background-alt: #262335FF;
+    foreground:     #E0DCE8FF;
+    selected:       #C4A1D4FF;
+    active:         #A6D189FF;
+    urgent:         #EB6F92FF;
+}
