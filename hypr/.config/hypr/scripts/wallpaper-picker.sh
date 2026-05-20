@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
+WALLPAPER_DIR="$HOME/Pictures/Wallpapers/catppuccin/"
 
 # for custom randomization
 # TRANSITIONS=(center grow wipe wave outer)
@@ -36,7 +36,7 @@ done
 chosen=$(ls "$WALLPAPER_DIR" | rofi \
   -dmenu \
   -i \
-  -p "Wallpaper" \
+  -p "󰥸" \
   -show-icons \
   -icon-theme "$CACHE_DIR")
 
