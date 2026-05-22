@@ -16,10 +16,24 @@ window#waybar.overlay {
 .modules-left,
 .modules-center,
 .modules-right {
-  padding: 15px;
-  padding-bottom: 20px;
+  padding: 8px;
   color: @text;
   font-weight: 500;
+  background-color: @base;
+  margin: 15px 15px 0 15px;
+  border-radius: 15px;
+}
+
+.modules-left {
+  padding-right: 16px;
+}
+
+.modules-center {
+  padding: 8px 16px;
+}
+
+.modules-right {
+  padding-left: 20px;
 }
 
 #workspaces button {

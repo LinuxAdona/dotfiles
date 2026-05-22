@@ -117,3 +117,26 @@ hl.layer_rule({
 	},
 	no_anim = true,
 })
+
+hl.layer_rule({
+	match = {
+		namespace = "selection",
+	},
+	no_anim = true,
+})
+
+-- eDP-1 gets workspaces 1-5
+for i = 1, 5 do
+	hl.workspace_rule({
+		workspace = tostring(i),
+		monitor = "eDP-1",
+	})
+end
+
+-- HDMI-A-1 gets workspaces 6-10
+for i = 6, 10 do
+	hl.workspace_rule({
+		workspace = tostring(i),
+		monitor = "HDMI-A-1",
+	})
+end

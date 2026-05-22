@@ -3,17 +3,11 @@
     "height": 30,
     "spacing": 18,
     "margin-top": 0,
-    "margin-bottom": -20,
+    "margin-bottom": 0,
     "margin-left": 0,
     "margin-right": 0,
-    "modules-left": [
-      "hyprland/workspaces",
-      "mpris",
-      "cava"
-    ],
-    "modules-center": [
-      "clock"
-    ],
+    "modules-left": ["hyprland/workspaces", "mpris", "cava"],
+    "modules-center": ["clock"],
     "modules-right": [
       "custom/updates",
       "power-profiles-daemon",
@@ -22,7 +16,7 @@
       "cpu",
       "memory",
       "network",
-      "battery"
+      "battery",
     ],
     "hyprland/workspaces": {
       "format": "{name}",
@@ -33,24 +27,12 @@
         "4": "4",
         "5": "5",
         "active": "",
-        "default": ""
+        "default": "",
       },
       "persistent-workspaces": {
-        "eDP-1": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ], // 5 workspaces by default on every monitor
-        "HDMI-A-1": [
-          6,
-          7,
-          8,
-          9,
-          10
-        ] // 5 workspaces by default on every monitor
-      }
+        "eDP-1": [1, 2, 3, 4, 5], // 5 workspaces by default on every monitor
+        "HDMI-A-1": [6, 7, 8, 9, 10], // 5 workspaces by default on every monitor
+      },
     },
     "mpris": {
       "format": "   {artist} - {title}",
@@ -58,16 +40,12 @@
       "max-length": 25,
       "player-icons": {
         "default": "⏸",
-        "mpv": "🎵"
+        "mpv": "🎵",
       },
       "status-icons": {
-        "paused": ""
+        "paused": "",
       },
-      "ignored-players": [
-        "firefox",
-        "chromium",
-        "brave"
-      ]
+      "ignored-players": ["firefox", "chromium", "brave"],
     },
     "cava": {
       "framerate": 60,
@@ -87,40 +65,31 @@
       "waves": false,
       "noise_reduction": 0.77,
       "input_delay": 2,
-      "format-icons": [
-        "▁",
-        "▂",
-        "▃",
-        "▄",
-        "▅",
-        "▆",
-        "▇",
-        "█"
-      ],
+      "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
       "actions": {
-        "on-click-right": "mode"
-      }
+        "on-click-right": "mode",
+      },
     },
     "idle_inhibitor": {
       "format": "{icon}",
       "format-icons": {
         "activated": "󰅶",
-        "deactivated": "󰾪"
-      }
+        "deactivated": "󰾪",
+      },
     },
     "group/tray-expander": {
       "orientation": "inherit",
       "drawer": {
         "transition-duration": 600,
-        "children-class": "tray-group-item"
+        "children-class": "tray-group-item",
       },
       "modules": [
         "custom/expand-icon",
         "bluetooth",
         "pulseaudio#output",
         "pulseaudio#input",
-        "tray"
-      ]
+        "tray",
+      ],
     },
     "custom/expand-icon": {
       "format": "",
@@ -128,7 +97,7 @@
       "on-scroll-up": "",
       "on-scroll-down": "",
       "on-scroll-left": "",
-      "on-scroll-right": ""
+      "on-scroll-right": "",
     },
     "power-profiles-daemon": {
       "format": "{icon}",
@@ -137,33 +106,31 @@
       "format-icons": {
         "performance": "",
         "balanced": "",
-        "power-saver": ""
-      }
+        "power-saver": "",
+      },
     },
     "cpu": {
       "format": "  {usage}%",
-      "tooltip-format": [
-        "{}: {usage0}%"
-      ],
+      "tooltip-format": ["{}: {usage0}%"],
       "interval": 2,
-      "on-click": "ghostty -e btop"
+      "on-click": "ghostty -e btop",
     },
     "memory": {
       "format": "   {}%",
       "tooltip-format": "{used:0.1f}G / {total:0.1f}G",
       "interval": 2,
-      "on-click": "ghostty -e htop"
+      "on-click": "ghostty -e htop",
     },
     "custom/updates": {
       "format": "{}{icon}",
       "return-type": "json",
       "format-icons": {
         "has-updates": " 󰏖",
-        "updated": ""
+        "updated": "",
       },
       "exec-if": "which waybar-module-pacman-updates",
       "exec": "waybar-module-pacman-updates --no-zero-output",
-      "on-click": "ghostty -e sudo pacman -Syu --noconfirm"
+      "on-click": "ghostty -e sudo pacman -Syu --noconfirm",
     },
     "pulseaudio#output": {
       "format": "{icon}",
@@ -171,16 +138,12 @@
       "format-muted": "󰝟",
       "format-icons": {
         "headphone": "󰋋",
-        "default": [
-          "󰕿",
-          "󰖀",
-          "󰕾"
-        ]
+        "default": ["󰕿", "󰖀", "󰕾"],
       },
       "on-click": "ghostty -e wiremix",
       "on-click-right": "pamixer -t",
       "scroll-step": 1,
-      "smooth-scrolling-threshold": 1
+      "smooth-scrolling-threshold": 1,
     },
     "pulseaudio#input": {
       "format-source": "",
@@ -193,16 +156,10 @@
       "on-click": "ghostty -e wiremix",
       "on-click-right": "pamixer --default-source -t",
       "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
-      "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%"
+      "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
     },
     "network": {
-      "format-icons": [
-        "󰤯",
-        "󰤟",
-        "󰤢",
-        "󰤥",
-        "󰤨"
-      ],
+      "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
       "format": "{icon}",
       "format-wifi": "{icon}",
       "format-ethernet": "󰌗",
@@ -212,7 +169,7 @@
       "tooltip-format-disconnected": "Disconnected",
       "interval": 3,
       "spacing": 1,
-      "on-click": "ghostty -e impala"
+      "on-click": "ghostty -e impala",
     },
     "clock": {
       "interval": 60,
@@ -228,23 +185,23 @@
           "days": "<span color='#ecc6d9'><b>{}</b></span>",
           "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
           "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-          "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-        }
+          "today": "<span color='#ff6699'><b><u>{}</u></b></span>",
+        },
       },
       "actions": {
         "on-click-right": "mode",
         "on-scroll-up": "tz_up",
         "on-scroll-down": "tz_down",
         "on-scroll-up": "shift_up",
-        "on-scroll-down": "shift_down"
-      }
+        "on-scroll-down": "shift_down",
+      },
     },
     "bluetooth": {
       "format": "",
       "format-disabled": "󰂲",
       "format-connected": "󰂱",
       "tooltip-format": "Devices connected: {num_connections}",
-      "on-click": "ghostty -e bluetui"
+      "on-click": "ghostty -e bluetui",
     },
     "battery": {
       "format": "{icon}   {capacity}%",
@@ -252,30 +209,8 @@
       "format-charging": "{icon}  {capacity}%",
       "format-plugged": " {capacity}%",
       "format-icons": {
-        "charging": [
-          "󰢜",
-          "󰂆",
-          "󰂇",
-          "󰂈",
-          "󰢝",
-          "󰂉",
-          "󰢞",
-          "󰂊",
-          "󰂋",
-          "󰂅"
-        ],
-        "default": [
-          "󰁺",
-          "󰁻",
-          "󰁼",
-          "󰁽",
-          "󰁾",
-          "󰁿",
-          "󰂀",
-          "󰂁",
-          "󰂂",
-          "󰁹"
-        ]
+        "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+        "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
       },
       "format-full": "󰂅  {capacity}%",
       "tooltip-format-discharging": "{timeTo}",
@@ -284,12 +219,12 @@
       "on-click": "",
       "states": {
         "warning": 20,
-        "critical": 10
-      }
+        "critical": 10,
+      },
     },
     "tray": {
       "icon-size": 12,
-      "spacing": 17
-    }
-  }
+      "spacing": 17,
+    },
+  },
 ]
