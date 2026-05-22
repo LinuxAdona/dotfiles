@@ -16,12 +16,10 @@ window#waybar.overlay {
 .modules-left,
 .modules-center,
 .modules-right {
-  padding: 8px;
+  padding: 8px 0px;
   color: @text;
   font-weight: 500;
-  background-color: @base;
-  margin: 15px 15px 0 15px;
-  border-radius: 15px;
+  margin: 7px 15px 0 15px;
 }
 
 .modules-left {

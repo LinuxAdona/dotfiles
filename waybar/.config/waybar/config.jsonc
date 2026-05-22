@@ -3,7 +3,7 @@
     "height": 30,
     "spacing": 18,
     "margin-top": 0,
-    "margin-bottom": 0,
+    "margin-bottom": -8,
     "margin-left": 0,
     "margin-right": 0,
     "modules-left": ["hyprland/workspaces", "mpris", "cava"],
