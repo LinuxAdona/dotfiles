@@ -130,7 +130,7 @@
       },
       "exec-if": "which waybar-module-pacman-updates",
       "exec": "waybar-module-pacman-updates --no-zero-output",
-      "on-click": "ghostty -e sudo pacman -Syu --noconfirm",
+      "on-click": "ghostty -e sudo pacman -Syu --noconfirm && yay -Syu --noconfitm",
     },
     "pulseaudio#output": {
       "format": "{icon}",

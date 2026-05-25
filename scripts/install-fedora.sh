@@ -52,6 +52,12 @@ clone_plugin "zsh-users/zsh-syntax-highlighting" "$ZSH_CUSTOM/plugins/zsh-syntax
 clone_plugin "romkatv/powerlevel10k" "$ZSH_CUSTOM/themes/powerlevel10k"
 clone_plugin "fdellwing/zsh-bat" "$ZSH_CUSTOM/plugins/zsh-bat"
 
+rm -rf "$HOME/.config/ghostty"
+rm -rf "$HOME/.zshrc"
+
+cd "$HOME/dotfiles"
+stow ghostty zsh
+
 echo "All configs installed!"
 
 if [ "$SHELL" != "$(which zsh)" ]; then
