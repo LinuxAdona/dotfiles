@@ -7,6 +7,7 @@ My personal dotfiles managed with GNU Stow for Arch Linux with Hyprland ([Omarch
 - Git
 - GNU Stow
 - Arch Linux (for `install.sh`)
+- Fedora Linux (for `scripts/install-fedora.sh`)
 - Hyprland-based Wayland desktop
 
 ## Installation
@@ -20,7 +21,23 @@ chmod +x install.sh
 ./install.sh
 ```
 
+### Fedora Setup
+
+For Fedora Linux, use the dedicated Fedora installation script:
+
+```bash
+chmod +x scripts/install-fedora.sh
+./scripts/install-fedora.sh
+```
+
 This will install:
+
+- **Ghostty terminal**: Installed from COPR repository
+- **Core utilities**: stow, btop, htop, fzf, zsh, man-db, tldr
+- **Oh My Zsh**: With Powerlevel10k theme and plugins (autosuggestions, syntax-highlighting, zsh-bat)
+- **System cleanup**: Removes existing ghostty and zsh configs before stowing new ones
+
+Both installation scripts prepare the system with essential packages and shell environment, then deploy the dotfiles using stow.
 
 - **AUR helper**: yay (installed automatically if not present)
 - **Core utilities**: stow, cmake, base-devel, openssh, github-cli
@@ -233,11 +250,9 @@ dotfiles/
 │   └── .config/swaync/
 ├── wlogout/                   # Wlogout menu
 │   └── .config/wlogout/
-├── services/                  # System services and daemons
-│   ├── auto-power-profile.sh          # Power profile management script
-│   ├── auto-power-profile.service     # systemd service unit
-│   └── 99-auto-power-profile.rules    # udev rules for AC/battery events
-├── install.sh                 # System package installation script
+├── scripts/                   # Installation scripts
+│   ├── install-fedora.sh      # Fedora package installation and config deployment
+│   └── install.sh             # Arch package installation and config deployment
 └── refresh.sh                 # Sync live configs back to repo
 ```
 
@@ -259,3 +274,9 @@ dotfiles/
 - Use `refresh.sh` to pull changes from your live system back into this repo (destructive copy -- deletes then re-copies)
 - Catppuccin Mocha is the consistent theme across all tools
 - Always review changes before committing updated configurations
+
+### Installation Methods
+
+- **Arch Linux**: Uses `install.sh` with `pacman` and AUR helpers (yay/paru) for package management
+- **Fedora Linux**: Uses `scripts/install-fedora.sh` with `dnf` and COPR repositories for package management
+- Both scripts achieve similar end states (essential packages + shell environment) but use different package managers and sources
