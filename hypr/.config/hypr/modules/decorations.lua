@@ -5,7 +5,7 @@
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
 	general = {
-		gaps_in = 7,
+		gaps_in = 4,
 		gaps_out = 15,
 
 		border_size = 2,
@@ -33,7 +33,7 @@ hl.config({
 		rounding = 0,
 
 		shadow = {
-			enabled = true,
+			enabled = false,
 			range = 8,
 			render_power = 3,
 			color = 0x0a0a0add,

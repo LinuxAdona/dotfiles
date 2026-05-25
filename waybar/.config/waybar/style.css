@@ -5,9 +5,10 @@
   font-family: "Google Sans Flex", "JetBrains Mono Nerd Font", "Noto Sans CJK JP", "Noto Sans CJK KR";
 }
 
-/* window#waybar { */
-/*   background: linear-gradient(180deg, rgba(30, 30, 46, 1), rgba(30, 30, 46, 0.8), rgba(30, 30, 46, 0)); */
-/* } */
+window#waybar {
+  /* background: linear-gradient(180deg, rgba(30, 30, 46, 1), rgba(30, 30, 46, 0.8), rgba(30, 30, 46, 0)); */
+  background-color: @crust;
+}
 
 window#waybar.overlay {
   background: transparent;
@@ -16,10 +17,11 @@ window#waybar.overlay {
 .modules-left,
 .modules-center,
 .modules-right {
-  padding: 8px 0px;
   color: @text;
   font-weight: 500;
-  margin: 7px 15px 0 15px;
+  font-size: 14px;
+  margin: 0px 8px;
+  padding: 8px 0px;
 }
 
 .modules-left {
