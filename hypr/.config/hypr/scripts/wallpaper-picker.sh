@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-WALLPAPER_DIR="$HOME/Pictures/Wallpapers/catppuccin/"
+WALLPAPER_DIR="$HOME/Pictures/Wallpapers/everforest/"
 
 # for custom randomization
 # TRANSITIONS=(center grow wipe wave outer)
