@@ -28,7 +28,7 @@ button {
 button:focus, button:active, button:hover {
 	background-color: @surface1;
 	outline-style: none;
-  border-color: @text;
+  border-color: @teal;
 }
 
 #lock {
