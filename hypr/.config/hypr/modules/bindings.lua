@@ -6,7 +6,7 @@
 local terminal = "ghostty"
 local fileManager = "nautilus"
 local menu = "rofi -show drun -theme ~/.config/rofi/config.rasi"
-local browser = "brave --password-store=basic"
+local browser = "zen-browser"
 
 ---------------------
 ---- KEYBINDINGS ----
