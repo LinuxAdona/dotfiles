@@ -22,7 +22,6 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + S", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen_state({ internal = 1, client = 0, action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
@@ -51,10 +50,16 @@ for i = 6, 10 do
 end
 
 -- Move workspaces to other monitors
-hl.bind(mainMod .. " + SHIFT + H", hl.dsp.workspace.move({ monitor = "l" }))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.workspace.move({ monitor = "r" }))
-hl.bind(mainMod .. " + SHIFT + K", hl.dsp.workspace.move({ monitor = "u" }))
-hl.bind(mainMod .. " + SHIFT + J", hl.dsp.workspace.move({ monitor = "d" }))
+hl.bind(mainMod .. " + CTRL + H", hl.dsp.workspace.move({ monitor = "l" }))
+hl.bind(mainMod .. " + CTRL + L", hl.dsp.workspace.move({ monitor = "r" }))
+hl.bind(mainMod .. " + CTRL + K", hl.dsp.workspace.move({ monitor = "u" }))
+hl.bind(mainMod .. " + CTRL + J", hl.dsp.workspace.move({ monitor = "d" }))
+
+-- Move windows
+hl.bind(mainMod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -116,7 +121,7 @@ hl.bind(
 -- Screenshots
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m window -o ~/Pictures/Screenshots/"))
 hl.bind(mainMod .. " + CTRL + S", hl.dsp.exec_cmd("hyprshot -m region -o ~/Pictures/Screenshots"))
-hl.bind(mainMod .. " + F12", hl.dsp.exec_cmd("hyprshot -m output -m eDP-1 -o ~/Pictures/Screenshots"))
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("hyprshot -m output -m eDP-1 -o ~/Pictures/Screenshots"))
 hl.bind(mainMod .. " + SHIFT + F12", hl.dsp.exec_cmd("hyprshot -m output -m HDMI-A-1 -o ~/Pictures/Screenshots"))
 
 -- Transparency Toggle
