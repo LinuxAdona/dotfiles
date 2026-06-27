@@ -71,7 +71,7 @@ window#waybar.overlay {
   font-weight: 700;
 }
 
-#pulseaudio, #network, #power-profiles-daemon, #custom-updates, #idle_inhibitor {
+#pulseaudio, #network, #power-profiles-daemon, #custom-updates, #idle_inhibitor, #custom-power {
   padding: 2px 8px 2px 0;
 }
 
