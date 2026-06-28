@@ -48,6 +48,11 @@ hl.window_rule({
 	float = true,
 })
 
+hl.window_rule({
+	match = { class = "zen" },
+	opacity = "1.0 override 1.0 override",
+})
+
 hl.layer_rule({
 	match = {
 		namespace = "swaync-control-center",
