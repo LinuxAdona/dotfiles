@@ -178,7 +178,7 @@
     },
     "clock": {
       "interval": 60,
-      "format": "{:%H:%M}",
+      "format": "{:%I:%M %p}",
       "tooltip-format": "{:%a, %B %d, %Y}",
       // "tooltip-format": "<tt><small>{calendar}</small></tt>",
       // "calendar": {
