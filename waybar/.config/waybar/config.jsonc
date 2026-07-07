@@ -1,7 +1,7 @@
 [
   {
     "height": 30,
-    "spacing": 18,
+    "spacing": 15,
     "margin-top": 0,
     "margin-bottom": 0,
     "margin-left": 0,
@@ -17,6 +17,7 @@
       "memory",
       "network",
       "battery",
+      "custom/power",
     ],
     "hyprland/workspaces": {
       "format": "{name}",
@@ -132,6 +133,10 @@
       "exec": "waybar-module-pacman-updates --no-zero-output",
       "on-click": "ghostty -e ~/.config/waybar/scripts/update.sh",
     },
+    "custom/power": {
+      "format": "⏻",
+      "on-click": "wlogout",
+    },
     "pulseaudio#output": {
       "format": "{icon}",
       "tooltip-format": "Output: {volume}%",
@@ -173,7 +178,7 @@
     },
     "clock": {
       "interval": 60,
-      "format": "{:%H:%M}",
+      "format": "{:%I:%M %p}",
       "tooltip-format": "{:%a, %B %d, %Y}",
       // "tooltip-format": "<tt><small>{calendar}</small></tt>",
       // "calendar": {

@@ -42,17 +42,18 @@ window#waybar.overlay {
   margin: 0 2px;
   font-weight: 700;
   transition: all 300ms ease-in-out;
+  opacity: 0.4;
 }
 
 #workspaces button.active {
-  background-color: @text;
-  color: @base;
+  color: @text;
+  opacity: 1;
   transition: all 100ms ease;
 }
 
-#workspaces button.empty {
-  opacity: 0.4;
-}
+/* #workspaces button.empty { */
+/*   opacity: 0.4; */
+/* } */
 
 #mpris {
   font-weight: 700;
@@ -70,7 +71,7 @@ window#waybar.overlay {
   font-weight: 700;
 }
 
-#pulseaudio, #network, #power-profiles-daemon, #custom-updates, #idle_inhibitor {
+#pulseaudio, #network, #power-profiles-daemon, #custom-updates, #idle_inhibitor, #custom-power {
   padding: 2px 8px 2px 0;
 }
 
