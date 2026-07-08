@@ -26,7 +26,7 @@ hl.config({
 
 	decoration = {
 		-- Change transparency of focused and unfocused windows
-		inactive_opacity = 0.8,
+		inactive_opacity = 0.6,
 		active_opacity = 0.9,
 		fullscreen_opacity = 1,
 
