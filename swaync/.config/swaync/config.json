@@ -29,10 +29,7 @@
       "app-name": ".*"
     }
   },
-  "widgets": [
-    "title",
-    "mpris"
-  ],
+  "widgets": ["title", "mpris"],
   "widget-config": {
     "title": {
       "text": "Notification Center",
@@ -40,9 +37,7 @@
       "button-text": "󰆴 Clear All"
     },
     "mpris": {
-      "blacklist": [
-        "playerctl"
-      ],
+      "blacklist": ["playerctl"],
       "autohide": false,
       "show-album-art": "always",
       "loop-carousel": false

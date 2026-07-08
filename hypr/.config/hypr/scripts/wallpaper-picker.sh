@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-WALLPAPER_DIR="$HOME/Pictures/Wallpapers/everforest/"
+THEME="catppuccin"
+
+WALLPAPER_DIR="$HOME/Pictures/Wallpapers/$THEME/"
 
 # for custom randomization
 # TRANSITIONS=(center grow wipe wave outer)
 # AWWW_TRANSITION="${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}"
 AWWW_TRANSITION="random"
-AWWW_DURATION=3
+AWWW_DURATION=2
 AWWW_FPS=60
 
 # Cycle wallpaper mode

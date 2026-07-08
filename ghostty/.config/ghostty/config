@@ -38,7 +38,7 @@ custom-shader-animation = always
 # Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
 async-backend = epoll
 
-theme = Everforest Dark Hard
+theme = Catppuccin Mocha
 # command = tmux has-session && tmux a || tmux
 gtk-titlebar = false
 bell-features = no-system
