@@ -6,19 +6,9 @@
     "margin-bottom": 0,
     "margin-left": 0,
     "margin-right": 0,
-    "modules-left": ["hyprland/workspaces", "mpris", "cava"],
-    "modules-center": ["clock"],
-    "modules-right": [
-      "custom/updates",
-      "power-profiles-daemon",
-      "idle_inhibitor",
-      "group/tray-expander",
-      "cpu",
-      "memory",
-      "network",
-      "battery",
-      "custom/power",
-    ],
+    "modules-left": ["hyprland/workspaces", "mpris", "custom/updates"],
+    "modules-center": ["power-profiles-daemon", "clock", "idle_inhibitor"],
+    "modules-right": ["group/tray-expander", "cpu", "memory", "network", "battery", "custom/power"],
     "hyprland/workspaces": {
       "format": "{name}",
       "format-icons": {
