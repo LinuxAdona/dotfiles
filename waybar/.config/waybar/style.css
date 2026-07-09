@@ -71,12 +71,8 @@ window#waybar.overlay {
   font-weight: 700;
 }
 
-#pulseaudio, #network, #custom-updates, #idle_inhibitor, #custom-power {
+#pulseaudio, #network, #custom-updates, #idle_inhibitor, #custom-power, #power-profiles-daemon {
   padding: 2px 8px 2px 0;
-}
-
-#power-profiles-daemon {
-  padding: 2px 3px 2px 0;
 }
 
 #pulseaudio, #bluetooth {

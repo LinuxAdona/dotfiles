@@ -125,7 +125,7 @@
     },
     "custom/power": {
       "format": "⏻",
-      "on-click": "wlogout",
+      "on-click": "wlogout -m 150 -c 10 -r 10",
     },
     "pulseaudio#output": {
       "format": "{icon}",
