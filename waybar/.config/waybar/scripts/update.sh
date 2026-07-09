@@ -3,6 +3,6 @@
 sudo pacman -Syu --noconfirm
 yay -Syu --noconfirm
 
-echo "System update complete!"
-read -rp ">> Press any key to continue..." -n1 -s
+echo -e "\e[1;33mSystem update complete!\e[0m"
+read -rp "\e[1;32m>> Press any key to continue...\e[0m" -n1 -s
 exit 0
