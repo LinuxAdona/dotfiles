@@ -91,6 +91,12 @@ window#waybar.overlay {
   color: @critical;
 }
 
+#custom-updates {
+  background-color: @base;
+  border-radius: 12px;
+  padding: 2px 12px 2px 10px;
+}
+
 #tray {
   margin-right: 16px;
 }

@@ -170,3 +170,6 @@ export PATH=$PATH:/home/mdk0/.spicetify
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# lampp
+alias xampp='sudo /opt/lampp/lampp'
