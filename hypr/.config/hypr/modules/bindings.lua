@@ -136,3 +136,6 @@ hl.bind(mainMod .. " + CTRL + DELETE", hl.dsp.exec_cmd("wlogout -m 150 -c 10 -r 
 
 -- Color Picker
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("hyprpicker -a"))
+
+-- Waybar Toggle
+hl.bind(mainMod .. " + CTRL + W", hl.dsp.exec_cmd("pkill -USR1 waybar"))
