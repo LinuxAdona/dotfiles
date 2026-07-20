@@ -139,3 +139,6 @@ hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("hyprpicker -a"))
 
 -- Waybar Toggle
 hl.bind(mainMod .. " + CTRL + W", hl.dsp.exec_cmd("pkill -USR1 waybar"))
+
+-- Network Manager
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("ghostty -e impala"))
