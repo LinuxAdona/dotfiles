@@ -173,3 +173,9 @@ export NVM_DIR="$HOME/.nvm"
 
 # lampp
 alias xampp='sudo /opt/lampp/lampp'
+
+. "$HOME/.local/bin/env"
+
+# Added by flyctl installer
+export FLYCTL_INSTALL="/home/mdk0/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"

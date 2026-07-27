@@ -145,3 +145,14 @@ for i = 6, 10 do
 		monitor = "HDMI-A-1",
 	})
 end
+
+hl.window_rule({
+	name = "fix-xwayland-video-bridge",
+	match = { class = "xwaylandvideobridge" },
+	no_initial_focus = true,
+	no_focus = true,
+	no_anim = true,
+	no_blur = true,
+	max_size = "1 1",
+	opacity = 0.0,
+})

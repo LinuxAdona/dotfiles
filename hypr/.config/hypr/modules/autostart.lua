@@ -21,4 +21,7 @@ hl.on("hyprland.start", function()
 
 	-- Gnome Polkit
 	hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
+
+	-- XWayland Video Bridge
+	hl.exec_cmd("xwaylandvideobridge &")
 end)
