@@ -276,6 +276,27 @@ this repo, editing here is what the running apps read.
 | `ALT + CTRL + SHIFT + SPACE` | Rofi flavour picker |
 | `ALT + CTRL + T` | Toggle Mocha ⇄ Latte |
 
+## Monitor Modes
+
+`ALT + CTRL + M` toggles `hypr/modules/monitors.lua` between mirroring the laptop
+panel onto HDMI-A-1 and extending onto it. Like the theme switcher it rewrites a
+single line (`local mode = "..."`) and reloads Hyprland, so the choice survives a
+restart.
+
+```bash
+~/.config/hypr/scripts/monitor-mode.sh            # toggle
+~/.config/hypr/scripts/monitor-mode.sh mirror     # duplicate the laptop panel
+~/.config/hypr/scripts/monitor-mode.sh extend     # extend to its right
+```
+
+| Mode | HDMI-A-1 rule |
+| --- | --- |
+| `mirror` | `position = "auto"`, `mirror = "eDP-1"` |
+| `extend` | `position = "1920x0"` — the laptop panel's width, so it sits to the right |
+
+The rules apply whether or not the external display is plugged in; Hyprland
+applies the matching rule when it connects.
+
 ### Where the colours live
 
 | App | Switcher line | Palettes |

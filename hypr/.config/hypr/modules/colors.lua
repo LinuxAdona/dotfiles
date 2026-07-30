@@ -69,6 +69,6 @@ local flavors = {
 }
 
 -- This line is rewritten by `scripts/theme.sh`.
-local active = "latte"
+local active = "mocha"
 
 return flavors[active]

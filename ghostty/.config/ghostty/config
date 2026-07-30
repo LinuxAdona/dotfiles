@@ -39,7 +39,7 @@ custom-shader-animation = always
 async-backend = epoll
 
 # This line is rewritten by `scripts/theme.sh`.
-config-file = colors/catppuccin-latte.conf
+config-file = colors/catppuccin-mocha.conf
 # command = tmux has-session && tmux a || tmux
 gtk-titlebar = false
 bell-features = no-system

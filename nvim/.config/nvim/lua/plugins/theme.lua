@@ -1,5 +1,5 @@
 -- This line is rewritten by `scripts/theme.sh`.
-local flavour = "latte"
+local flavour = "mocha"
 
 return {
   {

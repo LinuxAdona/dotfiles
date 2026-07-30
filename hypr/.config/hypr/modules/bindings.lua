@@ -135,6 +135,9 @@ hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/w
 hl.bind(mainMod .. " + CTRL + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/theme-picker.sh"))
 hl.bind(mainMod .. " + CTRL + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/theme-picker.sh --toggle"))
 
+-- Monitor Mode: toggle mirroring HDMI-A-1 vs extending onto it
+hl.bind(mainMod .. " + CTRL + M", hl.dsp.exec_cmd("~/.config/hypr/scripts/monitor-mode.sh"))
+
 -- Logout Menu
 hl.bind(mainMod .. " + CTRL + DELETE", hl.dsp.exec_cmd("wlogout -m 150 -c 10 -r 10"))
 
