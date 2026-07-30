@@ -250,11 +250,122 @@ dotfiles/
 │   └── .config/swaync/
 ├── wlogout/                   # Wlogout menu
 │   └── .config/wlogout/
-├── scripts/                   # Installation scripts
+├── scripts/                   # Installation and maintenance scripts
 │   ├── install-fedora.sh      # Fedora package installation and config deployment
-│   └── install.sh             # Arch package installation and config deployment
+│   ├── install.sh             # Arch package installation and config deployment
+│   └── theme.sh               # Switch the Catppuccin flavour across all configs
 └── refresh.sh                 # Sync live configs back to repo
 ```
+
+## Theming
+
+Every themed config keeps a single **switcher line** that points at a
+flavour-specific palette file. `scripts/theme.sh` rewrites those lines, so
+switching the whole desktop is one command. Because `~/.config` is stowed into
+this repo, editing here is what the running apps read.
+
+```bash
+./scripts/theme.sh              # show which flavour each config points at
+./scripts/theme.sh latte        # switch everything to Catppuccin Latte
+./scripts/theme.sh mocha        # ...or back to Mocha  (aliases: light / dark)
+./scripts/theme.sh toggle       # flip between the two
+```
+
+| Keybind | Action |
+| --- | --- |
+| `ALT + CTRL + SHIFT + SPACE` | Rofi flavour picker |
+| `ALT + CTRL + T` | Toggle Mocha ⇄ Latte |
+
+### Where the colours live
+
+| App | Switcher line | Palettes |
+| --- | --- | --- |
+| btop | `btop.conf` → `color_theme` | `btop/themes/catppuccin-*.theme` |
+| ghostty | `config` → `config-file` | `ghostty/colors/catppuccin-*.conf` |
+| waybar | `colors.css` | `waybar/colors/custom/catppuccin-*.css` |
+| swaync | `colors.css` | `swaync/colors/catppuccin-*.css` |
+| wlogout | `colors.css` | `wlogout/colors/catppuccin-*.css` |
+| rofi | `shared/colors.rasi` | `rofi/colors/catppuccin-*.rasi` |
+| hyprlock | `hypr/colors.conf` | `hypr/colors/catppuccin-*.conf` |
+| hyprland borders | `modules/colors.lua` → `active` | same file (both flavours inline) |
+| tmux | `tmux.conf` → `@catppuccin_flavor` | catppuccin/tmux plugin |
+| nvim | `plugins/theme.lua` → `flavour` | catppuccin/nvim plugin |
+
+The GTK apps (waybar, swaync, wlogout) import the raw 26-colour Catppuccin
+palette and map it to semantic names in their own `style.css`, so palette files
+stay pure colour definitions.
+
+`hypr/scripts/wallpaper-picker.sh` reads the same flavour marker
+(`modules/colors.lua`) and pulls from `~/Pictures/Wallpapers/catppuccin-<flavour>`,
+falling back to `catppuccin-mocha` for flavours with no wallpapers of their own.
+It has three modes:
+
+| Mode | Behaviour |
+| --- | --- |
+| *(no args)* | rofi thumbnail picker for the active flavour's set |
+| `--cycle` | advance to the next wallpaper in that set |
+| `--sync` | used by `theme.sh`; sets one from the active flavour's set, but only if the current wallpaper is not already from it |
+
+`theme.sh` calls `--sync` on every switch, so changing flavour also changes the
+wallpaper. Because `--sync` is a no-op when the wallpaper already matches,
+re-running a switch does not churn it.
+
+### System light/dark mode
+
+Latte puts the system into light mode and Mocha into dark mode. `theme.sh` sets:
+
+| Setting | Latte | Mocha |
+| --- | --- | --- |
+| `org.gnome.desktop.interface color-scheme` | `prefer-light` | `prefer-dark` |
+| `org.gnome.desktop.interface gtk-theme` | `Catppuccin-BL-MB-Light` | `Catppuccin-BL-MB-Dark` |
+| `gtk-3.0`/`gtk-4.0` `settings.ini` | `prefer-dark-theme=0` | `prefer-dark-theme=1` |
+| `~/.config/gtk-4.0/{gtk.css,gtk-dark.css,assets}` | symlinked to the Light theme | symlinked to the Dark theme |
+
+The `color-scheme` key is what `xdg-desktop-portal` exposes as
+`org.freedesktop.appearance`, so libadwaita, Electron and Chromium apps follow it
+too. The GTK theme pair is set via `GTK_THEME_LIGHT` / `GTK_THEME_DARK` at the
+top of `scripts/theme.sh` — change those if you install a different pair under
+`~/.themes`; the script warns and leaves the GTK theme alone if the named theme
+is missing.
+
+Note these GTK files live in `~/.config` and are **not** stowed from this repo,
+so `theme.sh` edits them in place. Only existing symlinks under `gtk-4.0/` are
+re-pointed — real files there are never overwritten.
+
+### What reloads live
+
+`waybar`, `swaync`, `hyprland` borders, `tmux` and `ghostty` are reloaded by the
+script. Ghostty does not watch its config file, so it is reloaded through the
+same `reload-config` action its menu uses, called on the session bus:
+
+```bash
+gdbus call --session --dest com.mitchellh.ghostty \
+  --object-path /com/mitchellh/ghostty \
+  --method org.gtk.Actions.Activate reload-config "[]" "{}"
+```
+
+**btop, rofi, wlogout, hyprlock and nvim pick up the new flavour the next time
+they launch** — there is no live-reload path for those. `htop` has no custom
+theme support at all; with `color_scheme=0` it follows the terminal palette, so
+it changes with ghostty.
+
+Within `theme.sh` the order matters: palette files, `settings.ini` and the
+GTK4 symlinks are all written *before* the dconf keys are set. Apps watch dconf
+and re-read their theme the instant it changes, so the files they read must
+already be correct — otherwise a fast-reacting app loads the previous theme.
+
+### Adding a flavour
+
+Add a palette file per app using the existing names, then add the flavour to
+`FLAVOURS` in `hypr/scripts/theme-picker.sh` and to the `case` in
+`scripts/theme.sh`. Mocha and Latte are complete; the `everforest` and
+`rose-pine` files under `waybar`, `swaync`, `wlogout` and `rofi` are older
+partial leftovers and are not wired into the switcher.
+
+If you add a whole new *directory* to a package (rather than a file inside an
+existing one), run `stow -R <package>` so it gets symlinked — ghostty's
+`colors/` needed this because `~/.config/ghostty` holds an unmanaged file and so
+is not tree-folded.
 
 ## Stow Commands Reference
 
@@ -272,7 +383,7 @@ dotfiles/
 - Configs under `.config/` are stored as `<package>/.config/<app>/` so stow symlinks them correctly
 - Root-level dotfiles (`.zshrc`, `.tmux.conf`) are stored directly inside their package directory
 - Use `refresh.sh` to pull changes from your live system back into this repo (destructive copy -- deletes then re-copies)
-- Catppuccin Mocha is the consistent theme across all tools
+- Catppuccin is the consistent theme across all tools; switch flavour with `scripts/theme.sh` (see [Theming](#theming))
 - Always review changes before committing updated configurations
 
 ### Installation Methods

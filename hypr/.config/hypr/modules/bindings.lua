@@ -131,6 +131,10 @@ hl.bind(mainMod .. " + SHIFT + BACKSPACE", hl.dsp.window.set_prop({ prop = "opaq
 hl.bind(mainMod .. " + CTRL + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-picker.sh"))
 hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallpaper-picker.sh --cycle"))
 
+-- Theme Switcher
+hl.bind(mainMod .. " + CTRL + SHIFT + SPACE", hl.dsp.exec_cmd("~/.config/hypr/scripts/theme-picker.sh"))
+hl.bind(mainMod .. " + CTRL + T", hl.dsp.exec_cmd("~/.config/hypr/scripts/theme-picker.sh --toggle"))
+
 -- Logout Menu
 hl.bind(mainMod .. " + CTRL + DELETE", hl.dsp.exec_cmd("wlogout -m 150 -c 10 -r 10"))
 

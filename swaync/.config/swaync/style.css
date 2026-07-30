@@ -1,19 +1,22 @@
-@define-color cc-bg #1e1e2e;
-@define-color noti-border-color #89b4fa;
-@define-color noti-bg #313244;
-@define-color noti-bg-darker #1e1e2e;
-@define-color noti-bg-hover #45475a;
-@define-color noti-bg-focus #585b70;
-@define-color noti-close-bg #f38ba8;
-@define-color noti-close-bg-hover #eba0ac;
-@define-color text-color #cdd6f4;
-@define-color text-color-disabled #9399b2;
-@define-color bg-selected #b4befe;
-@define-color border-white #89b4fa;
-@define-color red-base #f38ba8;
-@define-color red-hover #eba0ac;
-@define-color green-base #a6e3a1;
-@define-color white-base #cdd6f4;
+@import "colors.css";
+
+/* Semantic aliases, resolved from the palette imported above */
+@define-color cc-bg @base;
+@define-color noti-border-color @blue;
+@define-color noti-bg @surface0;
+@define-color noti-bg-darker @base;
+@define-color noti-bg-hover @surface1;
+@define-color noti-bg-focus @surface2;
+@define-color noti-close-bg @red;
+@define-color noti-close-bg-hover @maroon;
+@define-color text-color @text;
+@define-color text-color-disabled @overlay2;
+@define-color bg-selected @lavender;
+@define-color border-white @blue;
+@define-color red-base @red;
+@define-color red-hover @maroon;
+@define-color green-base @green;
+@define-color white-base @text;
 
 * {
   font-family: "Google Sans Flex", monospace;

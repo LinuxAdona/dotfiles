@@ -2,6 +2,8 @@
 ---- LOOK AND FEEL ----
 -----------------------
 
+local colors = require("modules.colors")
+
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
 	general = {
@@ -11,8 +13,8 @@ hl.config({
 		border_size = 1,
 
 		col = {
-			active_border = "rgba(89b4faff)",
-			inactive_border = "rgba(35a77caa)",
+			active_border = "rgba(" .. colors.blue .. "ff)",
+			inactive_border = "rgba(" .. colors.surface0 .. "aa)",
 		},
 
 		-- Set to true to enable resizing windows by clicking and dragging on borders and gaps

@@ -1,8 +1,21 @@
 #!/usr/bin/env bash
 
-THEME="catppuccin"
+# Follow whichever flavour scripts/theme.sh last set, so switching theme also
+# switches the wallpaper set. Falls back to the mocha set, then to an unsuffixed
+# "catppuccin" directory, for flavours with no wallpapers of their own.
+FLAVOUR_MARKER="$HOME/.config/hypr/modules/colors.lua"
+FLAVOUR=$(sed -nE 's/^local active = "([a-z]+)".*/\1/p' "$FLAVOUR_MARKER" 2>/dev/null | head -1)
 
-WALLPAPER_DIR="$HOME/Pictures/Wallpapers/$THEME"
+WALLPAPER_ROOT="$HOME/Pictures/Wallpapers"
+
+for candidate in "catppuccin-$FLAVOUR" "catppuccin-mocha" "catppuccin"; do
+  if [ -d "$WALLPAPER_ROOT/$candidate" ]; then
+    THEME="$candidate"
+    break
+  fi
+done
+
+WALLPAPER_DIR="$WALLPAPER_ROOT/${THEME:-catppuccin-mocha}"
 ROFI_THEME="$HOME/.config/rofi/image-picker.rasi"
 INDEX_FILE="$HOME/.cache/wallpaper-index"
 
@@ -28,14 +41,36 @@ if [ ${#WALLPAPERS[@]} -eq 0 ]; then
   exit 1
 fi
 
-# Cycle wallpaper mode
-if [[ "$1" == "--cycle" ]]; then
+# Advance to the next wallpaper in the current set. Prints the path it set on
+# stdout; awww's own output goes to stderr so callers can capture just the path.
+cycle_wallpaper() {
+  local index
   index=$(cat "$INDEX_FILE" 2>/dev/null || echo 0)
   index=$((index % ${#WALLPAPERS[@]}))
-  set_wallpaper "${WALLPAPERS[$index]}"
+  set_wallpaper "${WALLPAPERS[$index]}" >&2
   echo $(((index + 1) % ${#WALLPAPERS[@]})) >"$INDEX_FILE"
+  printf '%s\n' "${WALLPAPERS[$index]}"
+}
+
+case "$1" in
+# Cycle wallpaper mode
+--cycle)
+  cycle_wallpaper >/dev/null
   exit 0
-fi
+  ;;
+# Make the wallpaper match the active flavour, used by scripts/theme.sh. Only
+# changes it when the current one is not already from this flavour's directory,
+# so re-running a theme switch does not churn the wallpaper.
+--sync)
+  CURRENT=$(awww query 2>/dev/null | head -1 | awk '{print $NF}')
+  if [[ "$CURRENT" == "$WALLPAPER_DIR"/* ]]; then
+    printf 'kept %s\n' "$CURRENT"
+  else
+    printf 'set %s\n' "$(cycle_wallpaper)"
+  fi
+  exit 0
+  ;;
+esac
 
 # Rofi picker with thumbnails
 CURRENT=$(awww query 2>/dev/null | head -1 | awk '{print $NF}')

@@ -1,5 +1,9 @@
 @import "colors.css";
 
+/* Semantic aliases, resolved from the palette imported above */
+@define-color warning @yellow;
+@define-color critical @red;
+
 * {
   all: unset;
   font-family: "Google Sans Flex", "JetBrains Mono Nerd Font", "Noto Sans CJK JP", "Noto Sans CJK KR";
