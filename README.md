@@ -375,6 +375,28 @@ GTK4 symlinks are all written *before* the dconf keys are set. Apps watch dconf
 and re-read their theme the instant it changes, so the files they read must
 already be correct — otherwise a fast-reacting app loads the previous theme.
 
+tmux needs one extra step. `catppuccin/tmux` assigns both its palette (`@thm_*`)
+and its derived per-module colours (`@catppuccin_status_*_text_fg`, `*_icon_fg`)
+with `set -ogqF`. `-F` bakes the colour to a literal hex at source time, and `-o`
+then refuses to overwrite an option that is already set — so re-sourcing
+`tmux.conf` alone keeps the *previous* flavour. `theme.sh` clears everything
+catppuccin-owned first and lets the plugin rebuild it:
+
+```bash
+tmux show -g | grep -oE '^@(thm|catppuccin)[a-z_0-9]*' | while read -r opt; do
+  tmux set -gu "$opt"
+done
+tmux source-file ~/.config/tmux/tmux.conf
+```
+
+Clearing only `@thm_*` is not enough: the palette updates but the module colours
+stay baked, which shows up as e.g. the session name keeping light Mocha text on a
+light Latte background.
+
+Also note the palette exposes the base colour as **`@thm_bg`** — there is no
+`@thm_base`. Referencing a non-existent option expands to an empty string, which
+leaves tmux's default green status bar showing.
+
 ### Adding a flavour
 
 Add a palette file per app using the existing names, then add the flavour to

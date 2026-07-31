@@ -8,13 +8,13 @@ local colors = require("modules.colors")
 hl.config({
 	general = {
 		gaps_in = 4,
-		gaps_out = 9,
+		gaps_out = 60,
 
 		border_size = 1,
 
 		col = {
 			active_border = "rgba(" .. colors.blue .. "ff)",
-			inactive_border = "rgba(" .. colors.surface0 .. "aa)",
+			inactive_border = "rgba(" .. colors.surface2 .. "aa)",
 		},
 
 		-- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -32,7 +32,7 @@ hl.config({
 		active_opacity = 1,
 		fullscreen_opacity = 1,
 
-		rounding = 0,
+		rounding = 8,
 
 		shadow = {
 			enabled = false,

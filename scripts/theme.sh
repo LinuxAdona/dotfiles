@@ -278,10 +278,21 @@ reload_running_apps() {
 		any=1
 	fi
 
-	if command -v tmux >/dev/null 2>&1 && tmux has-session >/dev/null 2>&1 &&
-		tmux source-file "$HOME/.config/tmux/tmux.conf" >/dev/null 2>&1; then
-		ok tmux "status bar reloaded"
-		any=1
+	if command -v tmux >/dev/null 2>&1 && tmux has-session >/dev/null 2>&1; then
+		# catppuccin/tmux assigns both its palette (@thm_*) and its derived module
+		# colours (@catppuccin_status_*_text_fg and friends) with `set -ogqF`:
+		# -F bakes the colour to a literal hex at source time and -o then refuses
+		# to overwrite it. So a plain re-source keeps the previous flavour. Clear
+		# everything catppuccin-owned and let tmux.conf plus the plugin rebuild it.
+		local opt
+		while read -r opt; do
+			[[ -n $opt ]] && tmux set -gu "$opt"
+		done < <(tmux show -g 2>/dev/null | grep -oE '^@(thm|catppuccin)[a-z_0-9]*' || true)
+
+		if tmux source-file "$HOME/.config/tmux/tmux.conf" >/dev/null 2>&1; then
+			ok tmux "palette cleared and reloaded"
+			any=1
+		fi
 	fi
 
 	((any)) || info "${DIM}nothing running to reload${RESET}"
