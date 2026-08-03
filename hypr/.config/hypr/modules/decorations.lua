@@ -8,7 +8,7 @@ local colors = require("modules.colors")
 hl.config({
 	general = {
 		gaps_in = 4,
-		gaps_out = 60,
+		gaps_out = 8,
 
 		border_size = 1,
 
@@ -32,7 +32,7 @@ hl.config({
 		active_opacity = 1,
 		fullscreen_opacity = 1,
 
-		rounding = 8,
+		rounding = 0,
 
 		shadow = {
 			enabled = false,

@@ -12,7 +12,7 @@
 --   mirror    HDMI-A-1 duplicates the laptop panel
 
 -- This line is rewritten by scripts/monitor-mode.sh
-local mode = "mirror"
+local mode = "extend"
 
 local LAPTOP = "eDP-1"
 local EXTERNAL = "HDMI-A-1"
@@ -36,7 +36,7 @@ else
 	-- Placed at the laptop panel's width so it extends to the right of it
 	hl.monitor({
 		output = EXTERNAL,
-		mode = "preferred",
+		mode = "1920x1080@100",
 		position = "1920x0",
 		scale = "1",
 	})
