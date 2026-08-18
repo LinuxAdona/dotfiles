@@ -12,7 +12,7 @@
 --   mirror    HDMI-A-1 duplicates the laptop panel
 
 -- This line is rewritten by scripts/monitor-mode.sh
-local mode = "extend"
+local mode = "mirror"
 
 local LAPTOP = "eDP-1"
 local EXTERNAL = "HDMI-A-1"
