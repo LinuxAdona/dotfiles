@@ -1,282 +1,225 @@
 # Dotfiles
 
-My personal dotfiles managed with GNU Stow for Arch Linux with Hyprland ([Omarchy](https://github.com/omarchy)).
+Personal dotfiles managed with GNU Stow — an Arch Linux + Hyprland desktop,
+themed end to end with Catppuccin and switchable between Mocha and Latte with a
+single command.
 
 ## Prerequisites
 
-- Git
-- GNU Stow
-- Arch Linux (for `install.sh`)
-- Fedora Linux (for `scripts/install-fedora.sh`)
-- Hyprland-based Wayland desktop
+- Git and GNU Stow
+- Arch Linux (`scripts/install.sh`) — the full desktop setup
+- Fedora Linux (`scripts/install-fedora.sh`) — terminal subset only
+- Arch on WSL (`scripts/wsl.sh`) — terminal subset only
+- A Hyprland session for the desktop packages
 
 ## Installation
 
-### 1. System Setup
-
-Install required packages and dependencies:
+Clone the repo first — every install script stows out of `~/dotfiles`:
 
 ```bash
-chmod +x install.sh
-./install.sh
+git clone git@github.com:mdk-zero/dotfiles.git ~/dotfiles
+cd ~/dotfiles
 ```
 
-### Fedora Setup
+### Arch Linux (full desktop)
 
-For Fedora Linux, use the dedicated Fedora installation script:
+```bash
+chmod +x scripts/install.sh
+./scripts/install.sh
+```
+
+Installs the packages, sets up git/SSH/Oh My Zsh, stows every package, and
+installs Spicetify with its Marketplace. Roughly:
+
+- **AUR helpers**: yay (bootstrapped from source if missing), paru
+- **Core**: stow, base-devel, cmake, openssh, github-cli, man-db, man-pages, tldr, unzip, zip
+- **Development**: neovim, git, nodejs, npm, nvm, php, python, python-pip, python-pipx, jdk17-openjdk, android-studio + android-sdk, filezilla, opencode, composer (installed from getcomposer.org)
+- **Shell**: zsh (Oh My Zsh, Powerlevel10k, autosuggestions, syntax-highlighting, you-should-use, zsh-bat), tmux, yazi, zoxide, fzf, btop, htop
+- **Hyprland ecosystem**: hypridle, hyprlock, hyprpicker, hyprshot, hyprshutdown, hyprpolkitagent, xdg-desktop-portal-hyprland, rofi, swaync, swayosd, wlogout, awww (wallpaper daemon), and waybar via `waybar-cava-git` + `waybar-module-pacman-updates`
+- **Wayland/system**: wl-clipboard, cliphist, brightnessctl, pamixer, pavucontrol, wiremix, pipewire-{alsa,pulse}, wireplumber, alsa-utils, networkmanager, iwd, impala, bluez + bluetui, power-profiles-daemon, nautilus, ntfs-3g, os-prober, sddm, sbctl, reflector, nwg-look
+- **Styling / fun**: otf-commit-mono-nerd, ttf-jetbrains-mono-nerd, apple_cursor, ghostty, brave-bin, spotify, discord, cava, cmatrix, cbonsai, fastfetch
+
+### Arch on WSL (terminal only)
+
+```bash
+chmod +x scripts/wsl.sh
+./scripts/wsl.sh
+```
+
+The headless subset — CLI toolchain, git/SSH/Oh My Zsh, and only the packages
+that make sense without a graphical session: **btop, htop, nvim, tmux, zsh**. It
+also switches the default shell to zsh and clones the repo into `~/dotfiles` if
+it is not there yet.
+
+Nerd fonts are deliberately *not* installed: under WSL the terminal is a Windows
+application and renders with fonts installed on the Windows side, so the
+Powerlevel10k glyphs and nvim icons depend on the font configured there.
+
+The script warns and asks for confirmation if `/proc/version` does not look like
+WSL, so running it on a bare-metal Arch box by accident is hard.
+
+### Fedora Linux (terminal only)
 
 ```bash
 chmod +x scripts/install-fedora.sh
 ./scripts/install-fedora.sh
 ```
 
-This will install:
+Installs Ghostty from the `scottames/ghostty` COPR plus a small package set,
+sets up Oh My Zsh with the same plugin list, then stows **ghostty** and **zsh**
+and switches the default shell. Note this script removes an existing
+`~/.config/ghostty` and `~/.zshrc` outright rather than backing them up.
 
-- **Ghostty terminal**: Installed from COPR repository
-- **Core utilities**: stow, btop, htop, fzf, zsh, man-db, tldr
-- **Oh My Zsh**: With Powerlevel10k theme and plugins (autosuggestions, syntax-highlighting, zsh-bat)
-- **System cleanup**: Removes existing ghostty and zsh configs before stowing new ones
+### Deploy dotfiles manually
 
-Both installation scripts prepare the system with essential packages and shell environment, then deploy the dotfiles using stow.
-
-- **AUR helper**: yay (installed automatically if not present)
-- **Core utilities**: stow, cmake, base-devel, openssh, github-cli
-- **Development tools**: neovim, git, nodejs, npm, php, filezilla
-- **Shell environment**: zsh (with Oh My Zsh, Powerlevel10k, autosuggestions, syntax-highlighting), yazi, tmux (with TPM), zoxide
-- **Hyprland ecosystem**: hyprland, hyprpaper, hypridle, hyprlock, waybar, rofi, wofi, swaync, wlogout
-- **Wayland utilities**: wl-clipboard, cliphist, brightnessctl, playerctl, wpctl, pamixer, bluetui
-- **System utilities**: curl, wget, flatpak, pavucontrol, piper, kalarm
-- **Styling**: otf-commit-mono-nerd, cmatrix
-- **AUR packages**: waybar-module-pacman-updates-git, wttrbar, bibata-cursor-theme, brave-bin, paru, snapd, tty-clock
-
-### 2. Deploy Dotfiles
-
-Clone this repository and deploy configurations using stow:
+Each top-level directory is a stow package. Deploy everything:
 
 ```bash
-git clone https://github.com/itslinxad/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+stow btop ghostty htop hypr nvim rofi swaync tmux waybar wlogout zsh
 ```
 
-#### Deploy all packages
+…or one at a time:
 
 ```bash
-stow ghostty hypr nvim omarchy opencode tmux waybar zsh
+stow nvim       # -> ~/.config/nvim/
+stow hypr       # -> ~/.config/hypr/
+stow waybar     # -> ~/.config/waybar/
+stow tmux       # -> ~/.config/tmux/tmux.conf
+stow zsh        # -> ~/.zshrc
 ```
 
-#### Deploy specific packages
-
-Each top-level directory is a stow package. Deploy individual packages by name:
+To remove symlinks:
 
 ```bash
-stow nvim       # Deploy Neovim config to ~/.config/nvim/
-stow hypr       # Deploy Hyprland config to ~/.config/hypr/
-stow waybar     # Deploy Waybar config to ~/.config/waybar/
-stow tmux       # Deploy tmux config to ~/.tmux.conf
-stow zsh        # Deploy Zsh config to ~/.zshrc
+stow -D nvim                                                    # one package
+stow -D btop ghostty htop hypr nvim rofi swaync tmux waybar wlogout zsh
 ```
-
-## Usage
-
-### Unstow Configurations
-
-To remove symlinks and unstow all packages:
-
-```bash
-cd ~/dotfiles
-stow -D ghostty hypr nvim omarchy opencode tmux waybar zsh
-```
-
-Or unstow a specific package:
-
-```bash
-stow -D nvim
-```
-
-## Services
-
-System services and daemon configurations are stored in the `services/` directory. These are not managed by Stow and require manual installation.
-
-### Auto Power Profile
-
-Automatically switches system power profiles based on AC adapter status and battery capacity using `power-profiles-daemon`.
-
-**What it does:**
-- Sets **performance** mode when AC is plugged in
-- Sets **power-saver** mode when battery capacity ≤ 30%
-- Sets **balanced** mode when battery is between 31-80%
-- Runs on system boot and automatically adjusts when power state changes
-
-**How it works:**
-- `auto-power-profile.service` - systemd service that runs the script on boot
-- `99-auto-power-profile.rules` - udev rules that trigger the script when AC adapter connects/disconnects
-- `auto-power-profile.sh` - shell script that detects power state and sets appropriate profile
-
-**Installation:**
-
-1. **Verify your battery device path:**
-   ```bash
-   ls /sys/class/power_supply/
-   # Look for BAT0, BAT1, or similar battery device
-   ```
-
-2. **Update battery path if needed:**
-   Edit `services/auto-power-profile.sh` and change `BATTERY_PATH` if your device is not `BAT0`:
-   ```bash
-   BATTERY_PATH="/sys/class/power_supply/BAT0"  # Change BAT0 to your device
-   ```
-
-3. **Copy files to system directories:**
-   ```bash
-   sudo cp services/auto-power-profile.sh /usr/local/bin/
-   sudo chmod +x /usr/local/bin/auto-power-profile.sh
-   sudo cp services/99-auto-power-profile.rules /etc/udev/rules.d/
-   sudo cp services/auto-power-profile.service /etc/systemd/system/
-   ```
-
-4. **Enable and start the service:**
-   ```bash
-   sudo systemctl enable auto-power-profile.service
-   sudo systemctl start auto-power-profile.service
-   ```
-
-5. **Reload udev rules:**
-   ```bash
-   sudo udevadm control --reload
-   sudo udevadm trigger
-   ```
-
-**Configuration:**
-
-The script uses these thresholds:
-- **AC Connected** → `performance` mode
-- **Battery ≤ 30%** → `power-saver` mode
-- **Battery 31-80%** → `balanced` mode
-- **Battery > 80%** → `balanced` mode
-
-Edit `services/auto-power-profile.sh` to adjust capacity thresholds (lines 17-22).
-
-**Verification & Troubleshooting:**
-
-1. **Check service status:**
-   ```bash
-   systemctl status auto-power-profile.service
-   ```
-
-2. **Check current power profile:**
-   ```bash
-   powerprofilesctl get
-   ```
-
-3. **List available profiles:**
-   ```bash
-   powerprofilesctl list
-   ```
-
-4. **Verify power-profiles-daemon is running:**
-   ```bash
-   systemctl status power-profiles-daemon.service
-   ```
-
-5. **Check if udev rules are loaded:**
-   ```bash
-   sudo udevadm info --name=/sys/class/power_supply/AC
-   ```
-
-6. **View systemd journal logs:**
-   ```bash
-   journalctl -u auto-power-profile.service -n 20
-   ```
-
-7. **Test the script manually:**
-   ```bash
-   sudo /usr/local/bin/auto-power-profile.sh
-   ```
-
-8. **Check AC and battery status directly:**
-   ```bash
-   cat /sys/class/power_supply/AC/online        # 1 = plugged in, 0 = unplugged
-   cat /sys/class/power_supply/BAT0/capacity    # Battery percentage
-   ```
 
 ## Repository Structure
 
-Each top-level directory is a **stow package** that mirrors the target path from `$HOME`:
+Each top-level directory is a **stow package** that mirrors the target path from
+`$HOME`:
 
 ```
 dotfiles/
+├── btop/                      # btop system monitor
+│   └── .config/btop/
+│       ├── btop.conf
+│       └── themes/            # catppuccin-{mocha,latte}, rose-pine
 ├── ghostty/                   # Ghostty terminal emulator
 │   └── .config/ghostty/
 │       ├── config
-│       └── shaders/           # Custom GLSL cursor shaders
-├── hypr/                      # Hyprland compositor
-│   └── .config/hypr/
-│       ├── hyprland.conf
-│       ├── bindings.conf
-│       ├── monitors.conf
-│       ├── input.conf
-│       ├── looknfeel.conf
-│       ├── autostart.conf
-│       ├── hypridle.conf
-│       ├── hyprlock.conf
-│       ├── hyprsunset.conf
-│       └── xdph.conf
+│       ├── colors/            # catppuccin-{mocha,latte}.conf
+│       └── shaders/           # custom GLSL cursor shaders
+├── htop/                      # htop (no theme support — follows the terminal)
+│   └── .config/htop/htoprc
+├── hypr/                      # Hyprland compositor (Lua config)
+│   ├── .config/hypr/
+│   │   ├── hyprland.lua       # entry point — requires each module
+│   │   ├── hypridle.conf
+│   │   ├── hyprlock.conf
+│   │   ├── colors.conf        # hyprlang palette switcher line
+│   │   ├── colors/            # catppuccin-{mocha,latte}.conf
+│   │   ├── modules/           # monitors, bindings, autostart, envs,
+│   │   │                      # decorations, animations, layout, misc,
+│   │   │                      # input, windowrules, colors
+│   │   └── scripts/           # launch, monitor-mode, theme-picker,
+│   │                          # wallpaper-picker
+│   └── .config/hypr.old/      # the previous hyprlang config, kept for reference
 ├── nvim/                      # Neovim (LazyVim-based)
 │   └── .config/nvim/
 │       ├── init.lua
+│       ├── lazyvim.json       # enabled LazyVim extras
 │       ├── lazy-lock.json
-│       └── lua/
-│           ├── config/
-│           └── plugins/
-├── omarchy/                   # Omarchy theme framework
-│   └── .config/omarchy/
-│       └── themes/itslinx/    # Custom "itslinx" theme
-├── opencode/                  # OpenCode editor
-│   └── .config/opencode/
-│       └── opencode.json
-├── tmux/                      # Tmux
-│   └── .tmux.conf
+│       └── lua/{config,plugins}/
+├── rofi/                      # Rofi launcher
+│   └── .config/rofi/
+│       ├── config.rasi
+│       ├── image-picker.rasi  # thumbnail grid for the wallpaper picker
+│       ├── shared/            # colors.rasi (switcher), fonts.rasi
+│       └── colors/            # catppuccin-*, everforest, rose-pine
+├── swaync/                    # Sway notification center
+│   └── .config/swaync/
+├── tmux/                      # Tmux (TPM bootstraps itself on first launch)
+│   └── .config/tmux/tmux.conf
 ├── waybar/                    # Waybar status bar
 │   └── .config/waybar/
 │       ├── config.jsonc
-│       └── style.css
-├── zsh/                       # Zsh shell
-│   └── .zshrc
-├── btop/                      # btop system monitor
-│   └── .config/btop/
-├── rofi/                      # Rofi app launcher
-│   └── .config/rofi/
-├── swaync/                    # Sway notification center
-│   └── .config/swaync/
+│       ├── style.css
+│       ├── colors.css         # switcher line
+│       ├── colors/custom/     # catppuccin-*, everforest, rose-pine
+│       └── scripts/           # cava, launch, playerinfo, update
 ├── wlogout/                   # Wlogout menu
 │   └── .config/wlogout/
-├── scripts/                   # Installation and maintenance scripts
-│   ├── install-fedora.sh      # Fedora package installation and config deployment
-│   ├── install.sh             # Arch package installation and config deployment
-│   └── theme.sh               # Switch the Catppuccin flavour across all configs
-└── refresh.sh                 # Sync live configs back to repo
+├── zsh/                       # Zsh shell
+│   └── .zshrc
+├── scripts/                   # Installation and maintenance (not stowed)
+│   ├── install.sh             # Arch: full desktop
+│   ├── install-fedora.sh      # Fedora: ghostty + zsh
+│   ├── wsl.sh                 # Arch on WSL: terminal subset
+│   ├── repos.sh               # fzf picker to clone your GitHub repos into ~/dev
+│   ├── skills.sh              # install agent skills via `npx skills add`
+│   └── theme.sh               # switch the Catppuccin flavour across all configs
+├── services/                  # systemd/udev units (not stowed — see below)
+└── .php-cs-fixer.dist.php     # PHP-CS-Fixer defaults
 ```
 
-## Theming
+## Hyprland
 
-Every themed config keeps a single **switcher line** that points at a
-flavour-specific palette file. `scripts/theme.sh` rewrites those lines, so
-switching the whole desktop is one command. Because `~/.config` is stowed into
-this repo, editing here is what the running apps read.
+The Hyprland config is Lua, not hyprlang. `hyprland.lua` is the entry point and
+`require`s each file under `modules/`; the global `hl` table is Hyprland's Lua
+API (`hl.bind`, `hl.config`, `hl.monitor`, `hl.window_rule`, …). `.luarc.json`
+points lua-ls at `/usr/share/hypr/stubs` so the API autocompletes in Neovim.
 
-```bash
-./scripts/theme.sh              # show which flavour each config points at
-./scripts/theme.sh latte        # switch everything to Catppuccin Latte
-./scripts/theme.sh mocha        # ...or back to Mocha  (aliases: light / dark)
-./scripts/theme.sh toggle       # flip between the two
-```
+`hypr/.config/hypr.old/` is the previous hyprlang config, kept for reference. It
+is still part of the `hypr` stow package, so it lands at `~/.config/hypr.old`
+and Hyprland ignores it.
+
+### Keybindings
+
+Main modifier is **ALT**.
 
 | Keybind | Action |
 | --- | --- |
+| `ALT + RETURN` | Ghostty |
+| `ALT + E` | Nautilus |
+| `ALT + B` | Zen Browser |
+| `ALT + SPACE` | Rofi app launcher |
+| `ALT + W` | Close window |
+| `ALT + T` | Toggle floating |
+| `ALT + F` | Fullscreen |
+| `ALT + M` | Maximize (internal fullscreen) |
+| `ALT + P` | Pseudo-tile |
+| `ALT + R` | Restart waybar + swaync, reload Hyprland |
+| `ALT + H/J/K/L` | Move focus |
+| `ALT + SHIFT + H/J/K/L` | Move window |
+| `ALT + CTRL + H/J/K/L` | Move workspace to another monitor |
+| `ALT + 1..0` | Switch to workspace 1–10 |
+| `ALT + SHIFT + 1..0` | Move window to workspace 1–10 |
+| `ALT + scroll` | Cycle workspaces |
+| `ALT + LMB / RMB drag` | Move / resize window |
+| `ALT + A` | Toggle notification center |
+| `ALT + C` | Colour picker (hyprpicker) |
+| `ALT + S` | Screenshot the laptop panel |
+| `ALT + SHIFT + F12` | Screenshot HDMI-A-1 |
+| `ALT + SHIFT + S` | Screenshot a window |
+| `ALT + CTRL + S` | Screenshot a region |
+| `ALT + SHIFT + V` | Clipboard history (cliphist + rofi) |
+| `ALT + SHIFT + BACKSPACE` | Toggle window opacity |
+| `ALT + CTRL + W` | Toggle waybar |
+| `ALT + SHIFT + W` | Wi-Fi manager (impala) |
+| `ALT + CTRL + SPACE` | Wallpaper picker |
+| `ALT + SHIFT + SPACE` | Next wallpaper |
 | `ALT + CTRL + SHIFT + SPACE` | Rofi flavour picker |
 | `ALT + CTRL + T` | Toggle Mocha ⇄ Latte |
+| `ALT + CTRL + M` | Toggle mirror ⇄ extend on HDMI-A-1 |
+| `ALT + CTRL + DELETE` | Logout menu |
 
-## Monitor Modes
+Workspaces 1–5 are bound to `eDP-1`, 6–10 to `HDMI-A-1`. Media, brightness,
+caps-lock and num-lock keys route through `swayosd-client` for on-screen
+feedback.
+
+### Monitor Modes
 
 `ALT + CTRL + M` toggles `hypr/modules/monitors.lua` between mirroring the laptop
 panel onto HDMI-A-1 and extending onto it. Like the theme switcher it rewrites a
@@ -297,6 +240,25 @@ restart.
 The rules apply whether or not the external display is plugged in; Hyprland
 applies the matching rule when it connects.
 
+## Theming
+
+Every themed config keeps a single **switcher line** that points at a
+flavour-specific palette file. `scripts/theme.sh` rewrites those lines, so
+switching the whole desktop is one command. Because `~/.config` is stowed into
+this repo, editing here is what the running apps read.
+
+```bash
+./scripts/theme.sh              # show which flavour each config points at
+./scripts/theme.sh latte        # switch everything to Catppuccin Latte
+./scripts/theme.sh mocha        # ...or back to Mocha  (aliases: light / dark)
+./scripts/theme.sh toggle       # flip between the two
+```
+
+| Keybind | Action |
+| --- | --- |
+| `ALT + CTRL + SHIFT + SPACE` | Rofi flavour picker |
+| `ALT + CTRL + T` | Toggle Mocha ⇄ Latte |
+
 ### Where the colours live
 
 | App | Switcher line | Palettes |
@@ -308,18 +270,24 @@ applies the matching rule when it connects.
 | wlogout | `colors.css` | `wlogout/colors/catppuccin-*.css` |
 | rofi | `shared/colors.rasi` | `rofi/colors/catppuccin-*.rasi` |
 | hyprlock | `hypr/colors.conf` | `hypr/colors/catppuccin-*.conf` |
-| hyprland borders | `modules/colors.lua` → `active` | same file (both flavours inline) |
+| hyprland borders | `modules/colors.lua` → `local active` | same file (both flavours inline) |
 | tmux | `tmux.conf` → `@catppuccin_flavor` | catppuccin/tmux plugin |
-| nvim | `plugins/theme.lua` → `flavour` | catppuccin/nvim plugin |
+| nvim | `plugins/theme.lua` → `local flavour` | catppuccin/nvim plugin |
+
+`hypr/modules/colors.lua` doubles as the **canonical record of the active
+flavour** — `theme.sh`, `theme-picker.sh` and `wallpaper-picker.sh` all read the
+`local active = "..."` line out of it.
 
 The GTK apps (waybar, swaync, wlogout) import the raw 26-colour Catppuccin
 palette and map it to semantic names in their own `style.css`, so palette files
 stay pure colour definitions.
 
-`hypr/scripts/wallpaper-picker.sh` reads the same flavour marker
-(`modules/colors.lua`) and pulls from `~/Pictures/Wallpapers/catppuccin-<flavour>`,
-falling back to `catppuccin-mocha` for flavours with no wallpapers of their own.
-It has three modes:
+### Wallpapers
+
+`hypr/scripts/wallpaper-picker.sh` reads the same flavour marker and pulls from
+`~/Pictures/Wallpapers/catppuccin-<flavour>`, falling back to `catppuccin-mocha`
+and then to a plain `catppuccin` directory for flavours with no wallpapers of
+their own. Wallpapers are set with `awww`. It has three modes:
 
 | Mode | Behaviour |
 | --- | --- |
@@ -366,9 +334,10 @@ gdbus call --session --dest com.mitchellh.ghostty \
 ```
 
 **btop, rofi, wlogout, hyprlock and nvim pick up the new flavour the next time
-they launch** — there is no live-reload path for those. `htop` has no custom
-theme support at all; with `color_scheme=0` it follows the terminal palette, so
-it changes with ghostty.
+they launch** — there is no live-reload path for those. GTK3 apps read
+`settings.ini` at startup and need a restart too. `htop` has no custom theme
+support at all; with `color_scheme=0` it follows the terminal palette, so it
+changes with ghostty.
 
 Within `theme.sh` the order matters: palette files, `settings.ini` and the
 GTK4 symlinks are all written *before* the dconf keys are set. Apps watch dconf
@@ -397,18 +366,105 @@ Also note the palette exposes the base colour as **`@thm_bg`** — there is no
 `@thm_base`. Referencing a non-existent option expands to an empty string, which
 leaves tmux's default green status bar showing.
 
+### On WSL / Fedora
+
+`theme.sh` degrades gracefully off a Hyprland desktop: it still rewrites every
+switcher line in the repo, then warns and skips the parts that need a graphical
+session (`gsettings`, the GTK themes, `awww`, waybar/swaync/hyprland reloads).
+On WSL that means btop, tmux and nvim follow the flavour as usual.
+
 ### Adding a flavour
 
 Add a palette file per app using the existing names, then add the flavour to
 `FLAVOURS` in `hypr/scripts/theme-picker.sh` and to the `case` in
 `scripts/theme.sh`. Mocha and Latte are complete; the `everforest` and
-`rose-pine` files under `waybar`, `swaync`, `wlogout` and `rofi` are older
-partial leftovers and are not wired into the switcher.
+`rose-pine` files under `btop`, `waybar`, `swaync`, `wlogout` and `rofi` are
+older partial leftovers and are not wired into the switcher.
 
 If you add a whole new *directory* to a package (rather than a file inside an
 existing one), run `stow -R <package>` so it gets symlinked — ghostty's
 `colors/` needed this because `~/.config/ghostty` holds an unmanaged file and so
 is not tree-folded.
+
+## Services
+
+System services and daemon configurations live in `services/`. These are **not**
+managed by Stow and require manual installation.
+
+### Auto Power Profile
+
+Automatically switches system power profiles based on AC adapter status and
+battery capacity using `power-profiles-daemon`.
+
+**What it does:**
+- Sets **performance** mode when AC is plugged in
+- Sets **power-saver** mode when battery capacity ≤ 30%
+- Sets **balanced** mode otherwise
+- Runs on system boot and automatically adjusts when power state changes
+
+**How it works:**
+- `auto-power-profile.service` — systemd service that runs the script on boot
+- `99-auto-power-profile.rules` — udev rules that trigger the script when the AC adapter connects/disconnects
+- `auto-power-profile.sh` — shell script that detects power state and sets the profile
+
+**Installation:**
+
+1. **Verify your battery device path:**
+   ```bash
+   ls /sys/class/power_supply/
+   # Look for BAT0, BAT1, or similar battery device
+   ```
+
+2. **Update battery path if needed:**
+   Edit `services/auto-power-profile.sh` and change `BATTERY_PATH` if your device is not `BAT0`:
+   ```bash
+   BATTERY_PATH="/sys/class/power_supply/BAT0"  # Change BAT0 to your device
+   ```
+
+3. **Copy files to system directories:**
+   ```bash
+   sudo cp services/auto-power-profile.sh /usr/local/bin/
+   sudo chmod +x /usr/local/bin/auto-power-profile.sh
+   sudo cp services/99-auto-power-profile.rules /etc/udev/rules.d/
+   sudo cp services/auto-power-profile.service /etc/systemd/system/
+   ```
+
+4. **Enable and start the service:**
+   ```bash
+   sudo systemctl enable auto-power-profile.service
+   sudo systemctl start auto-power-profile.service
+   ```
+
+5. **Reload udev rules:**
+   ```bash
+   sudo udevadm control --reload
+   sudo udevadm trigger
+   ```
+
+Edit `services/auto-power-profile.sh` to adjust the capacity thresholds.
+
+**Verification & troubleshooting:**
+
+```bash
+systemctl status auto-power-profile.service        # service status
+powerprofilesctl get                               # current profile
+powerprofilesctl list                              # available profiles
+systemctl status power-profiles-daemon.service     # daemon running?
+sudo udevadm info --name=/sys/class/power_supply/AC # udev rules loaded?
+journalctl -u auto-power-profile.service -n 20     # logs
+sudo /usr/local/bin/auto-power-profile.sh          # run it manually
+cat /sys/class/power_supply/AC/online              # 1 = plugged in, 0 = unplugged
+cat /sys/class/power_supply/BAT0/capacity          # battery percentage
+```
+
+## Other Scripts
+
+Neither of these is wired into the install scripts; run them on demand.
+
+| Script | What it does |
+| --- | --- |
+| `scripts/repos.sh` | Lists your GitHub repos with `gh`, picks with `fzf` (falls back to a numbered menu), and clones the selection into `~/dev`. Prompts to skip / pull / re-clone when a repo is already there. |
+| `scripts/skills.sh` | Installs the agent skills used with this setup via `npx skills add`. |
 
 ## Stow Commands Reference
 
@@ -424,13 +480,16 @@ is not tree-folded.
 
 - Each top-level directory is a stow package that mirrors the target path from `$HOME`
 - Configs under `.config/` are stored as `<package>/.config/<app>/` so stow symlinks them correctly
-- Root-level dotfiles (`.zshrc`, `.tmux.conf`) are stored directly inside their package directory
-- Use `refresh.sh` to pull changes from your live system back into this repo (destructive copy -- deletes then re-copies)
+- Root-level dotfiles (`.zshrc`) are stored directly inside their package directory
+- TPM is **not** installed by the install scripts — `tmux.conf` clones it into `~/.local/share/tmux/plugins/tpm` and installs the plugin list on first launch
+- Both Arch scripts assume the repo is at `~/dotfiles`; `wsl.sh` clones it there if missing, `install.sh` does not
+- `install.sh` and `wsl.sh` write a hard-coded git `user.name` / `user.email` and generate an SSH key — edit those before running on a machine that is not the author's
 - Catppuccin is the consistent theme across all tools; switch flavour with `scripts/theme.sh` (see [Theming](#theming))
 - Always review changes before committing updated configurations
 
-### Installation Methods
+### Known warts
 
-- **Arch Linux**: Uses `install.sh` with `pacman` and AUR helpers (yay/paru) for package management
-- **Fedora Linux**: Uses `scripts/install-fedora.sh` with `dnf` and COPR repositories for package management
-- Both scripts achieve similar end states (essential packages + shell environment) but use different package managers and sources
+- `zsh/.zshrc` sources `/usr/share/nvm/init-nvm.sh` and `~/.local/bin/env` unconditionally. `nvm` comes from the `nvm` package (installed by both Arch scripts); `~/.local/bin/env` comes from the `uv` installer, which no script installs — expect a "no such file" line on first shell start until you install `uv` or drop that line.
+- `zsh/.zshrc` hard-codes `/home/itslinx/...` in `PHP_INI_SCAN_DIR` and `/home/mdk0/...` in the Spicetify and flyctl paths. They are inert on other machines but stale.
+- `scripts/install.sh` lists `zsh-you-should-use` under its pacman packages, but that package only exists in the AUR — the pacman step fails on it. `wsl.sh` clones the plugin into `$ZSH_CUSTOM` instead, which is what Oh My Zsh actually reads.
+- `scripts/install.sh`'s AUR list includes several `*-debug` packages (`paru-debug`, `android-sdk-debug`, …). Those are debug-symbol packages and do not need to be installed explicitly.

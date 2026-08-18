@@ -1,15 +1,28 @@
 #!/usr/bin/env bash
+#
+# Arch-on-WSL setup: the terminal-only subset of this repo.
+#
+# Installs the CLI toolchain, configures git/SSH/Oh My Zsh, then stows the
+# packages that make sense without a graphical session:
+#
+#   btop  htop  nvim  tmux  zsh
+#
+# Everything Wayland — hypr, waybar, rofi, swaync, wlogout, ghostty — is
+# skipped. Use scripts/install.sh on a real Arch desktop for those.
 
 set -e
 
-sudo pacman -Sy --noconfirm
+DOTFILES_DIR="$HOME/dotfiles"
+DOTFILES_REPO="https://github.com/mdk-zero/dotfiles.git"
+BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d_%H%M%S)"
 
-if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-  echo "TPM not found. Installing now."
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-else
-  echo "TPM is installed! Skipping installation."
+if ! grep -qi microsoft /proc/version 2>/dev/null; then
+  echo "This does not look like WSL. scripts/install.sh is the full desktop version."
+  read -rp "Continue anyway? (y/N): " answer
+  [[ "$answer" =~ ^[Yy]$ ]] || exit 1
 fi
+
+sudo pacman -Sy --noconfirm
 
 if ! command -v yay &>/dev/null; then
   echo "yay not found. Installing from AUR..."
@@ -23,52 +36,64 @@ else
 fi
 
 PACKAGES=(
-  stow
-  openssh
-  github-cli
   base-devel
+  github-cli
+  openssh
+  stow
 )
 
 DEV_PACKAGES=(
-  neovim
   git
+  libnsl
+  libxcrypt-compat
+  neovim
   nodejs
   npm
+  nvm
   php
-  libxcrypt-compat
-  libnsl
+  python
+  python-pip
+  python-pipx
 )
 
 SHELL_PACKAGES=(
-  zsh
+  bat
+  fzf
   tmux
   yazi
+  zoxide
+  zsh
 )
 
 UTIL_PACKAGES=(
+  btop
   curl
+  fd
+  htop
+  man-db
+  man-pages
+  ripgrep
+  tldr
+  unzip
   wget
+  zip
 )
 
-STYLE_PACKAGES=(
-  otf-commit-mono-nerd
-  ttf-jetbrains-mono-nerd
-)
+# Nerd fonts are deliberately absent: under WSL the terminal is a Windows
+# application and renders with fonts installed on the Windows side, so
+# installing them in the distro does nothing for the p10k prompt or nvim icons.
 
 AUR_PACKAGES=(
-  zoxide
   paru
-  snapd
 )
 
-sudo pacman -S --noconfirm \
+sudo pacman -S --needed --noconfirm \
   "${PACKAGES[@]}" \
   "${DEV_PACKAGES[@]}" \
   "${SHELL_PACKAGES[@]}" \
-  "${UTIL_PACKAGES[@]}" \
-  "${STYLE_PACKAGES[@]}"
+  "${UTIL_PACKAGES[@]}"
 
-yay -S --noconfirm "${AUR_PACKAGES[@]}"
+yay -S --needed --noconfirm "${AUR_PACKAGES[@]}"
 
 if command -v composer &>/dev/null; then
   echo "Composer already installed. Skipping."
@@ -123,14 +148,18 @@ clone_plugin() {
   fi
 }
 
+# These must live under $ZSH_CUSTOM — the plugins=(...) list in zsh/.zshrc
+# resolves names there, not against system-wide package installs.
 clone_plugin "zsh-users/zsh-autosuggestions" "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 clone_plugin "zsh-users/zsh-syntax-highlighting" "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 clone_plugin "romkatv/powerlevel10k" "$ZSH_CUSTOM/themes/powerlevel10k"
 clone_plugin "MichaelAquilina/zsh-you-should-use" "$ZSH_CUSTOM/plugins/zsh-you-should-use"
 clone_plugin "fdellwing/zsh-bat" "$ZSH_CUSTOM/plugins/zsh-bat"
 
-DOTFILES_DIR="$HOME/dotfiles"
-BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d_%H%M%S)"
+if [ ! -d "$DOTFILES_DIR" ]; then
+  echo "Cloning dotfiles into $DOTFILES_DIR..."
+  git clone "$DOTFILES_REPO" "$DOTFILES_DIR"
+fi
 
 cd "$DOTFILES_DIR"
 
@@ -202,9 +231,25 @@ install_config() {
   fi
 }
 
+install_config "Btop" "btop"
+install_config "Htop" "htop"
 install_config "Neovim" "nvim"
 install_config "Tmux" "tmux"
 install_config "Zsh" "zsh"
 
+# TPM is not cloned here on purpose: tmux/.config/tmux/tmux.conf bootstraps it
+# into ~/.local/share/tmux/plugins/tpm on first launch and installs the plugin
+# list itself. Cloning to the old ~/.tmux/plugins/tpm path just leaves a second,
+# unused copy behind.
+
+if [ "$(basename "$SHELL")" != "zsh" ]; then
+  echo ""
+  echo "Changing default shell to zsh..."
+  chsh -s "$(command -v zsh)"
+else
+  echo "Zsh is already the default shell. Skipping."
+fi
+
 echo ""
 echo "All configs installed!"
+echo "Start a new zsh session; tmux will install its plugins on first launch."
